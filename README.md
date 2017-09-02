@@ -1,6 +1,7 @@
 # Serenity Cucumber Starter project
 
-![](https://travis-ci.org/cucumber/cucumber-java-skeleton.svg)
+[![CircleCI](https://circleci.com/gh/serenity-bdd/serenity-cucumber-starter.svg?style=svg)](https://circleci.com/gh/serenity-bdd/serenity-cucumber-starter)
+
 
 This is the simplest possible build script setup for Cucumber using Java. 
 The idea for this project is stolen from/inspired by the Cucumber Java Skeleton project (https://github.com/cucumber/cucumber-java-skeleton).
