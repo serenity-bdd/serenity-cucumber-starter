@@ -23,7 +23,7 @@ targetCompatibility = 1.8
 
 dependencies {
     compile 'net.serenity-bdd:serenity-core:1.5.9'
-    compile 'net.serenity-bdd:serenity-cucumber:1.5.5'
+    compile 'net.serenity-bdd:serenity-cucumber:1.5.7'
     testCompile('junit:junit:4.12')
     compile('org.assertj:assertj-core:3.6.2')
     compile 'org.slf4j:slf4j-simple:1.7.7'
