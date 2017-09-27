@@ -11,9 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.5.9</serenity.version>
-        <serenity.maven.version>1.5.9</serenity.maven.version>
-        <serenity.cucumber.version>1.5.7</serenity.cucumber.version>
+        <serenity.version>1.6.0</serenity.version>
+        <serenity.maven.version>1.6.0</serenity.maven.version>
+        <serenity.cucumber.version>1.5.9</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <parallel.tests>4</parallel.tests>
