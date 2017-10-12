@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:1.6.0")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.6.4")
     }
 }
 
@@ -22,10 +22,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile 'net.serenity-bdd:serenity-core:1.6.0'
-    compile 'net.serenity-bdd:serenity-screenplay:1.6.0'
-    compile 'net.serenity-bdd:serenity-screenplay-webdriver:1.6.0'
-    compile 'net.serenity-bdd:serenity-cucumber:1.5.9'
+    compile 'net.serenity-bdd:serenity-core:1.6.4'
+    compile 'net.serenity-bdd:serenity-screenplay:1.6.4'
+    compile 'net.serenity-bdd:serenity-screenplay-webdriver:1.6.4'
+    compile 'net.serenity-bdd:serenity-cucumber:1.5.14'
     testCompile('junit:junit:4.12')
     compile('org.assertj:assertj-core:3.6.2')
     compile 'org.slf4j:slf4j-simple:1.7.7'
