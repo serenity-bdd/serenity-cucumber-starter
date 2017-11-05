@@ -24,7 +24,7 @@ targetCompatibility = 1.8
 dependencies {
     compile "net.serenity-bdd:serenity-core:${SerenityCoreVersion}"
     compile "net.serenity-bdd:serenity-screenplay:${SerenityCoreVersion}"
-    compile "net.serenity-bdd:serenity-screenplay-web:${SerenityCoreVersion}"
+    compile "net.serenity-bdd:serenity-screenplay-webdriver:${SerenityCoreVersion}"
     compile "net.serenity-bdd:serenity-cucumber:${SerenityCucumberVersion}"
     compile "org.assertj:assertj-core:${assertJVersion}"
     compile "org.slf4j:slf4j-simple:${slf4jVersion}"
