@@ -9,7 +9,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:${SerenityCoreVersion}")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:1.8.1")
     }
 }
 
@@ -17,19 +17,22 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
+apply from: "$rootDir/gradle/libraries.gradle"
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile "net.serenity-bdd:serenity-core:${SerenityCoreVersion}"
-    compile "net.serenity-bdd:serenity-screenplay:${SerenityCoreVersion}"
-    compile "net.serenity-bdd:serenity-screenplay-webdriver:${SerenityCoreVersion}"
-    compile "net.serenity-bdd:serenity-cucumber:${SerenityCucumberVersion}"
-    compile "org.assertj:assertj-core:${assertJVersion}"
-    compile "org.slf4j:slf4j-simple:${slf4jVersion}"
+    compile libs.slf4jApi,
+            libs.logback
 
-    testCompile "junit:junit:${junitVersion}"
+    testCompile libs.test.serenity.core,
+            libs.test.serenity.screenplay,
+            libs.test.serenity.screenplayWebdriver,
+            libs.test.serenity.cucumber,
+            libs.test.junit,
+            libs.test.assertj
 }
 
 test {

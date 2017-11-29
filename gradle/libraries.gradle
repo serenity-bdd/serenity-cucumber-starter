@@ -1,0 +1,24 @@
+ext{
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '1.8.1'
+    serenityCucumberVersion = '1.6.5'
+    junitVersion='4.12'
+    assertJVersion='3.8.0'
+    logbackVersion='1.2.3'
+
+    libs = [
+            slf4jApi: "org.slf4j:slf4j-api:$slf4jVersion",
+            logback: "ch.qos.logback:logback-classic:${logbackVersion}",
+
+            test: [
+                    serenity: [
+                            core: "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+                            screenplay: "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+                            screenplayWebdriver: "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+                            cucumber: "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}",
+                    ],
+                    junit: "junit:junit:${junitVersion}",
+                    assertj: "org.assertj:assertj-core:${assertJVersion}"
+            ]
+    ]
+}
