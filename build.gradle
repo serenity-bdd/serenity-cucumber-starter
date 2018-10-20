@@ -11,7 +11,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.7")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.8")
     }
 }
 
@@ -31,6 +31,7 @@ dependencies {
 
     testCompile libs.test.serenity.core,
             libs.test.serenity.screenplay,
+            libs.test.serenity.junit,
             libs.test.serenity.screenplayWebdriver,
             libs.test.serenity.cucumber,
             libs.test.junit,

@@ -1,7 +1,7 @@
 ext{
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '1.9.26'
-    serenityCucumberVersion = '1.9.8'
+    serenityCoreVersion = '2.0.7'
+    serenityCucumberVersion = '1.9.19'
     junitVersion='4.12'
     assertJVersion='3.8.0'
     logbackVersion='1.2.3'
@@ -13,8 +13,9 @@ ext{
             test: [
                     serenity: [
                             core: "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+                            junit: "net.serenity-bdd:serenity-junit:${serenityCoreVersion}",
                             screenplay: "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-                            screenplayWebdriver: "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+                            screenplayWebdriver: "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
                             cucumber: "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}",
                     ],
                     junit: "junit:junit:${junitVersion}",
