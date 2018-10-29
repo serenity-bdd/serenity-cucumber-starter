@@ -11,7 +11,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.8")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.11")
     }
 }
 
@@ -26,8 +26,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile libs.slf4jApi,
-            libs.logback
+    compile libs.logback
 
     testCompile libs.test.serenity.core,
             libs.test.serenity.screenplay,
