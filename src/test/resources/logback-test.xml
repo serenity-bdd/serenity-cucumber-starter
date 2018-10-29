@@ -7,9 +7,9 @@
         </encoder>
     </appender>
 
-    <logger name="root" level="INFO"/>
-    <logger name="org.springframework" level="INFO"/>
-    <logger name="org.apache.tomcat" level="WARN"/>
+    <logger name="root" level="DEBUG"/>
+    <logger name="net.serenitybdd" level="INFO"/>
+    <logger name="net.thucydides" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
