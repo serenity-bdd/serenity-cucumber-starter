@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.serenitybdd.starter</groupId>
-    <artifactId>starter</artifactId>
+    <artifactId>serenity-cucumber-starter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>2.0.11</serenity.version>
-        <serenity.maven.version>2.0.11</serenity.maven.version>
+        <serenity.version>2.0.13</serenity.version>
+        <serenity.maven.version>2.0.13</serenity.maven.version>
         <serenity.cucumber.version>1.9.20</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
