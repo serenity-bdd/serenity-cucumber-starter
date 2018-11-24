@@ -16,7 +16,7 @@
         <serenity.cucumber.version>1.9.20</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
-        <parallel.tests>1</parallel.tests>
+        <parallel.tests>4</parallel.tests>
         <webdriver.base.url></webdriver.base.url>
     </properties>
 
