@@ -1,14 +1,18 @@
 package starter.search;
 
-import net.serenitybdd.core.steps.UIInteractionSteps;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.Task;
+import net.serenitybdd.screenplay.actions.Clear;
+import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Enter;
 
-public class SearchFor extends UIInteractionSteps {
+public class SearchFor {
 
-    @Step("Search for term {0}")
-    public void term(String term) {
-        $(SearchForm.SEARCH_FIELD).clear();
-        $(SearchForm.SEARCH_FIELD).type(term);
-        $(SearchForm.SEARCH_BUTTON).click();
+    public static Performable term(String term) {
+        return Task.where("{0} attempts to search for #term",
+                Clear.field(SearchForm.SEARCH_FIELD),
+                Enter.theValue(term).into(SearchForm.SEARCH_FIELD),
+                Click.on(SearchForm.SEARCH_BUTTON)
+        ).with("term").of(term);
     }
 }

@@ -27,7 +27,7 @@ src
            geckodriver.exe
 ```
 
-## The Cucumber 4 sample scenario
+## The sample scenario
 Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the DuckDuckGo search engine:
 
 ```Gherkin

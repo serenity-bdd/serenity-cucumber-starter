@@ -1,16 +1,12 @@
 package starter.search;
 
-import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.core.steps.UIInteractionSteps;
+import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.questions.TextContent;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class SearchResult extends UIInteractionSteps {
-    public List<String> titles() {
-        return findAll(SearchResultList.RESULT_TITLES)
-                .stream()
-                .map(WebElementFacade::getTextContent)
-                .collect(Collectors.toList());
+public class SearchResult {
+    public static Question<List<String>> titles() {
+        return actor -> TextContent.of(SearchResultList.RESULT_TITLES).viewedBy(actor).asList();
     }
 }

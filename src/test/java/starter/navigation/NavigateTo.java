@@ -1,13 +1,14 @@
 package starter.navigation;
 
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.Task;
+import net.serenitybdd.screenplay.actions.Open;
 
-public class NavigateTo {
+public class NavigateTo  {
 
-    DuckDuckGoHomePage duckDuckGoHomePage;
-
-    @Step("Open the DuckDuckGo home page")
-    public void theDuckDuckGoHomePage() {
-        duckDuckGoHomePage.open();
+    public static Performable theDuckDuckGoHomePage() {
+        return Task.where("{0} opens the DuckDuckGo home page",
+                Open.browserOn().the(DuckDuckGoHomePage.class)
+        );
     }
 }
