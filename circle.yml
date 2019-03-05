@@ -5,11 +5,8 @@
 version: 2
 jobs:
   build:
-    machine: true
-
     docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:11.0.1-jdk-sid
+      - image: circleci/openjdk:11.0.2-jdk-stretch-node-browsers-legacy
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -28,9 +25,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: mvn dependency:go-offline
 
