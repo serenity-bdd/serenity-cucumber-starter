@@ -5,6 +5,8 @@
 version: 2
 jobs:
   build:
+    machine: true
+
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11.0.1-jdk-sid
