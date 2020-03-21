@@ -11,7 +11,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.91")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.0")
     }
 }
 
@@ -25,10 +25,19 @@ apply from: "$rootDir/gradle/libraries.gradle"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+/**
+ * This is needed to make sure there are no Cucumber 2 dependencies in the classpath.
+ */
+configurations.all {
+    resolutionStrategy {
+        force "io.cucumber:cucumber-core:${cucumberVersion}"
+    }
+}
 dependencies {
     compile libs.logback
 
-    testCompile libs.test.serenity.core,
+    testCompile libs.test.cucumber.junit,
+            libs.test.serenity.core,
             libs.test.serenity.screenplay,
             libs.test.serenity.junit,
             libs.test.serenity.screenplayWebdriver,

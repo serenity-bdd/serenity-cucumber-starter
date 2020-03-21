@@ -1,10 +1,11 @@
 ext{
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '2.1.0'
-    serenityCucumberVersion = '1.9.51'
+    serenityCoreVersion = '2.2.0'
+    serenityCucumberVersion = '2.2.0'
     junitVersion='4.12'
     assertJVersion='3.8.0'
     logbackVersion='1.2.3'
+    cucumberVersion = '4.8.0'
 
     libs = [
             slf4jApi: "org.slf4j:slf4j-api:$slf4jVersion",
@@ -16,7 +17,7 @@ ext{
                             junit: "net.serenity-bdd:serenity-junit:${serenityCoreVersion}",
                             screenplay: "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
                             screenplayWebdriver: "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-                            cucumber: "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}",
+                            cucumber: "net.serenity-bdd:serenity-cucumber5:${serenityCucumberVersion}",
                     ],
                     junit: "junit:junit:${junitVersion}",
                     assertj: "org.assertj:assertj-core:${assertJVersion}"

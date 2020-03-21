@@ -1,8 +1,8 @@
 package starter.stepdefinitions;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 import starter.navigation.NavigateTo;
 import starter.search.SearchFor;
@@ -27,12 +27,12 @@ public class SearchOnDuckDuckGoStepDefinitions {
         navigateTo.theDuckDuckGoHomePage();
     }
 
-    @When("s?he searches for \"(.*)\"")
+    @When("^s?he searches for \"(.*)\"")
     public void i_search_for(String term) {
         searchFor.term(term);
     }
 
-    @Then("all the result titles should contain the word \"(.*)\"")
+    @Then("^all the result titles should contain the word \"(.*)\"")
     public void all_the_result_titles_should_contain_the_word(String term) {
         assertThat(searchResult.titles())
                 .matches(results -> results.size() > 0)
