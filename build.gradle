@@ -1,4 +1,4 @@
-defaultTasks 'clean','test','aggregate'
+defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
     mavenLocal()
@@ -11,7 +11,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.0.91")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.2.0")
     }
 }
 
@@ -19,22 +19,28 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
-apply from: "$rootDir/gradle/libraries.gradle"
-
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-dependencies {
-    compile libs.logback
+ext {
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '2.2.0'
+    serenityCucumberVersion = '2.2.0'
+    junitVersion = '4.12'
+    assertJVersion = '3.8.0'
+    logbackVersion = '1.2.3'
+}
 
-    testCompile libs.test.serenity.core,
-            libs.test.serenity.screenplay,
-            libs.test.serenity.junit,
-            libs.test.serenity.screenplayWebdriver,
-            libs.test.serenity.cucumber,
-            libs.test.junit,
-            libs.test.assertj
+dependencies {
+    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+
+    testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber5:${serenityCucumberVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "junit:junit:${junitVersion}",
+            "org.assertj:assertj-core:${assertJVersion}"
 }
 
 test {

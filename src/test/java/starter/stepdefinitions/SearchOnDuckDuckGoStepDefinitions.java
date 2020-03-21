@@ -1,10 +1,9 @@
 package starter.stepdefinitions;
 
-import cucumber.api.java.Before;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import net.serenitybdd.screenplay.actions.Open;
+import io.cucumber.java.Before;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import starter.navigation.NavigateTo;
@@ -27,15 +26,6 @@ public class SearchOnDuckDuckGoStepDefinitions {
     @Given("^(.*) is on the DuckDuckGo home page")
     public void on_the_DuckDuckGo_home_page(String actor) {
         theActorCalled(actor).attemptsTo(NavigateTo.theDuckDuckGoHomePage());
-    }
-
-    @Given("^(.*) wants a (.*)")
-    public void on_the_home_page(String actor, String vegetable) {
-        if (vegetable.equalsIgnoreCase("cucumber")) {
-            theActorCalled(actor).attemptsTo(NavigateTo.aMissingPage());
-        } else {
-            theActorCalled(actor).attemptsTo(NavigateTo.theDuckDuckGoHomePage());
-        }
     }
 
     @When("^s?he searches for \"(.*)\"")
