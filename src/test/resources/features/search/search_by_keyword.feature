@@ -1,13 +1,7 @@
 Feature: Search by keyword
 
-  @cucumber @green
   Scenario: Searching for a term
-    Given Sergey is on the DuckDuckGo home page
+    Given Sergey is researching things on the internet
     When he searches for "cucumber"
-    Then all the result titles should contain the word "cucumber"
+    Then the results should be about "cucumber"
 
-  @cucumber @brown
-  Scenario: Searching for a gherkin
-    Given Sergey is on the DuckDuckGo home page
-    When he searches for "cucumber"
-    Then all the result titles should contain the word "cucumber"
