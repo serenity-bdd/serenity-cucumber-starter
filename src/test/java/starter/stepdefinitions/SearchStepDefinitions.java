@@ -1,42 +1,42 @@
 package starter.stepdefinitions;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import net.thucydides.core.annotations.Screenshots;
-import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.guice.Injectors;
-import net.thucydides.core.util.EnvironmentVariables;
+import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.actors.OnlineCast;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import starter.navigation.NavigateTo;
-import starter.search.SearchFor;
-import starter.search.SearchResult;
+import starter.search.Search;
+import starter.search.WikipediaArticle;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static starter.matchers.TextMatcher.textOf;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
 public class SearchStepDefinitions {
 
-    @Steps
-    NavigateTo navigateTo;
+    @Before
+    public void setTheStage() {
+        OnStage.setTheStage(new OnlineCast());
+    }
 
-    @Steps
-    SearchFor searchFor;
-
-    @Steps
-    SearchResult searchResult;
-
-    @Given("^(?:.*) is researching things on the internet$")
-    public void researchingThings() {
-        navigateTo.theWikipediaHomePage();
+    @Given("{actor} is researching things on the internet")
+    public void researchingThings(Actor actor) {
+        actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
     }
 
     @When("(s)he searches for {string}")
     public void searchesFor(String term) {
-        searchFor.term(term);
+        theActorInTheSpotlight().attemptsTo(
+            Search.forTerm(term)
+        );
     }
 
     @Then("the results should be about {string}")
     public void all_the_result_titles_should_contain_the_word(String term) {
-        assertThat(searchResult.heading()).isEqualToIgnoringCase(term);
+        theActorInTheSpotlight().attemptsTo(
+                Ensure.that(WikipediaArticle.PAGE_HEADING).text().isEqualToIgnoringCase(term)
+        );
     }
 }

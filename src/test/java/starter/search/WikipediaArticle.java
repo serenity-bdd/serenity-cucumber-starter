@@ -1,8 +1,9 @@
 package starter.search;
 
 
-import org.openqa.selenium.By;
+import net.serenitybdd.screenplay.targets.Target;
 
 public class WikipediaArticle {
-    public static final By PAGE_HEADING = By.cssSelector("#firstHeading");
+    public static final Target PAGE_HEADING = Target.the("Page heading")
+                                                    .locatedBy("#firstHeading");
 }

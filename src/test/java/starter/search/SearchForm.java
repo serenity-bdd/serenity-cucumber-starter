@@ -1,7 +1,9 @@
 package starter.search;
 
-import org.openqa.selenium.By;
+import net.serenitybdd.screenplay.targets.Target;
 
 class SearchForm {
-    static By SEARCH_FIELD = By.id("searchInput");
+    static Target SEARCH_FIELD = Target.the("Search field")
+                                       .locatedBy("#searchInput");
+
 }
