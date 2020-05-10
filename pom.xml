@@ -11,7 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>2.2.4</serenity.version>
+        <serenity.version>2.2.5</serenity.version>
+        <serenity.maven.version>2.2.5</serenity.maven.version>
         <serenity.cucumber.version>2.2.2</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
@@ -153,7 +154,7 @@
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
-                <version>${serenity.version}</version>
+                <version>${serenity.maven.version}</version>
                 <configuration>
                     <tags>${tags}</tags>
                 </configuration>
