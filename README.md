@@ -1,4 +1,4 @@
-# Getting started with Serenity and Cucumber 2.4
+# Getting started with Serenity and Cucumber
 
 [![CircleCI](https://circleci.com/gh/serenity-bdd/serenity-cucumber-starter.svg?style=svg)](https://circleci.com/gh/serenity-bdd/serenity-cucumber-starter)
 
