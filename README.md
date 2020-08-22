@@ -1,6 +1,6 @@
 # Getting started with Serenity and Cucumber
 
-Serenity BDD is a library that makes it easier to write high quality automated acceptance tests, with powerful reporting and living documentation features. It has strong support for both web testing with Selenium, and API testing using RestAssured. 
+Serenity BDD is a library that makes it easier to write high quality automated acceptance tests, with powerful reporting and living documentation features. It has strong support for both web testing with Selenium, and API testing using RestAssured.
 
 Serenity strongly encourages good test automation design, and supports several design patterns, including classic Page Objects, the newer Lean Page Objects/ Action Classes approach, and the more sophisticated and flexible Screenplay pattern.
 
@@ -18,7 +18,7 @@ src
     + java                        Test runners and supporting code
     + resources
       + features                  Feature files
-          + search                  Feature file subdirectories 
+     + search                  Feature file subdirectories 
              search_by_keyword.feature
 ```
 
@@ -74,7 +74,7 @@ These classes are declared using the Serenity `@Steps` annotation, shown below:
     SearchResult searchResult;
 ```
 
-The `@Steps`annotation tells Serenity to create a new instance of the class, and inject any other steps or page objects that this instance might need. 
+The `@Steps`annotation tells Serenity to create a new instance of the class, and inject any other steps or page objects that this instance might need.
 
 Each action class models a particular facet of user behaviour: navigating to a particular page, performing a search, or retrieving the results of a search. These classes are designed to be small and self-contained, which makes them more stable and easier to maintain.
 
@@ -107,10 +107,10 @@ public class SearchFor extends UIInteractionSteps {
         $(SearchForm.SEARCH_FIELD).type(term);
         $(SearchForm.SEARCH_BUTTON).click();
     }
-} 
+}
 ```
 
-The `SearchForm` class is typical of a light-weight Page Object: it is responsible uniquely for locating elements on the page, and it does this by defining locators or occasionally by resolving web elements dynamically. 
+The `SearchForm` class is typical of a light-weight Page Object: it is responsible uniquely for locating elements on the page, and it does this by defining locators or occasionally by resolving web elements dynamically.
 ```java
 class SearchForm {
     static By SEARCH_FIELD = By.cssSelector(".js-search-input");
@@ -118,7 +118,7 @@ class SearchForm {
 }
 ```
 
-The last step library class used in the step definition code is the `SearchResult` class. The job of this class is to query the web page, and retrieve a list of search results that we can use in the AssertJ assertion at the end of the test. This class also extends `UIInteractionSteps` and 
+The last step library class used in the step definition code is the `SearchResult` class. The job of this class is to query the web page, and retrieve a list of search results that we can use in the AssertJ assertion at the end of the test. This class also extends `UIInteractionSteps` and
 ```java
 public class SearchResult extends UIInteractionSteps {
     public List<String> titles() {
@@ -140,7 +140,7 @@ class SearchResultList {
 The main advantage of the approach used in this example is not in the lines of code written, although Serenity does reduce a lot of the boilerplate code that you would normally need to write in a web test. The real advantage is in the use of many small, stable classes, each of which focuses on a single job. This application of the _Single Responsibility Principle_ goes a long way to making the test code more stable, easier to understand, and easier to maintain.
 
 ## The Screenplay starter project
-If you prefer to use the Screenplay pattern, or want to try it out, check out the _screenplay_ branch instead of the _master_ branch. In this version of the starter project, the same scenario is implemented using the Screenplay pattern. 
+If you prefer to use the Screenplay pattern, or want to try it out, check out the _screenplay_ branch instead of the _master_ branch. In this version of the starter project, the same scenario is implemented using the Screenplay pattern.
 
 The Screenplay pattern describes tests in terms of actors and the tasks they perform. Tasks are represented as objects performed by an actor, rather than methods. This makes them more flexible and composable, at the cost of being a bit more wordy. Here is an example:
 ```java
@@ -157,7 +157,7 @@ The Screenplay pattern describes tests in terms of actors and the tasks they per
     @When("she/he searches for {string}")
     public void search_for(String term) {
         theActorInTheSpotlight().attemptsTo(
-             SearchFor.term(term)      );
+             SearchFor.term(term)     );
     }
 
     @Then("all the result titles should contain the word {string}")
@@ -182,7 +182,7 @@ public class NavigateTo  {
                 Open.browserOn().the(DuckDuckGoHomePage.class)
         );
     }
-} 
+}
 ```
 
 The `SearchFor` class is also similar: it is shown below:
@@ -219,7 +219,7 @@ By default, the tests will run using Chrome. You can run them in Firefox by over
 ```json
 $ mvn clean verify -Ddriver=firefox
 ```
-Or 
+Or
 ```json
 $ gradle clean test -Pdriver=firefox
 ```
@@ -279,7 +279,7 @@ environments {
   }
 }
 ```
-  
+
 You use the `environment` system property to determine which environment to run against. For example to run the tests in the staging environment, you could run:
 ```json
 $ mvn clean verify -Denvironment=staging
@@ -290,5 +290,5 @@ See [**this article**](https://johnfergusonsmart.com/environment-specific-config
 ## Want to learn more?
 For more information about Serenity BDD, you can read the [**Serenity BDD Book**](https://serenity-bdd.github.io/theserenitybook/latest/index.html), the official online Serenity documentation source. Other sources include:
 * **[Byte-sized Serenity BDD](https://www.youtube.com/channel/UCav6-dPEUiLbnu-rgpy7_bw/featured)** - tips and tricks about Serenity BDD
+* For regular posts on agile test automation best practices, join the **[Agile Test Automation Secrets](https://www.linkedin.com/groups/8961597/)** groups on [LinkedIn](https://www.linkedin.com/groups/8961597/) and [Facebook](https://www.facebook.com/groups/agiletestautomation/)
 * [**Serenity BDD Blog**](https://johnfergusonsmart.com/category/serenity-bdd/) - regular articles about Serenity BDD
-* [**The Serenity BDD Dojo**](https://serenitydojo.teachable.com) - Online training on Serenity BDD and on test automation and BDD in general. 
