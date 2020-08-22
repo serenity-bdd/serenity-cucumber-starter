@@ -242,24 +242,7 @@ chrome.switches="""--start-maximized;--test-type;--no-sandbox;--ignore-certifica
 
 ```
 
-The project also bundles some of the WebDriver binaries that you need to run Selenium tests in the `src/test/resources/webdriver` directories. These binaries are configured in the `drivers` section of the `serenity.conf` config file:
-```json
-drivers {
-  windows {
-    webdriver.chrome.driver = "src/test/resources/webdriver/windows/chromedriver.exe"
-    webdriver.gecko.driver = "src/test/resources/webdriver/windows/geckodriver.exe"
-  }
-  mac {
-    webdriver.chrome.driver = "src/test/resources/webdriver/mac/chromedriver"
-    webdriver.gecko.driver = "src/test/resources/webdriver/mac/geckodriver"
-  }
-  linux {
-    webdriver.chrome.driver = "src/test/resources/webdriver/linux/chromedriver"
-    webdriver.gecko.driver = "src/test/resources/webdriver/linux/geckodriver"
-  }
-}
-```
-This configuration means that development machines and build servers do not need to have a particular version of the WebDriver drivers installed for the tests to run correctly.
+Serenity uses WebDriverManager to download the WebDriver binaries automatically before the tests are executed.
 
 ### Environment-specific configurations
 We can also configure environment-specific properties and options, so that the tests can be run in different environments. Here, we configure three environments, __dev__, _staging_ and _prod_, with different starting URLs for each:
