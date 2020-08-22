@@ -19,16 +19,10 @@ src
     + resources
       + features                  Feature files
           + search                  Feature file subdirectories 
-             search_by_keyword.feature 
-       + webdriver                 Bundled webdriver binaries
-         + linux
-         + mac
-         + windows 
-           chromedriver.exe       OS-specific Webdriver binaries 
-           geckodriver.exe
+             search_by_keyword.feature
 ```
 
-This project assumes that you have the latest version of Chrome (83) installed.
+Serenity 2.2.13 introduced integration with WebdriverManager to download webdriver binaries.
 
 ## The sample scenario
 Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the DuckDuckGo search engine:
