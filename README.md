@@ -97,31 +97,24 @@ The Screenplay DSL is rich and flexible, and well suited to teams working on lar
 
 ### The Action Classes implementation.
 
------------
-The glue code for this scenario looks this this:
+A more imperative-style implementation using the Action Classes pattern can be found in the `action-classes` branch. The glue code in this version looks this this:
 
 ```java
-    @Given("^(?:.*) is on the DuckDuckGo home page")	 
-    public void i_am_on_the_DuckDuckGo_home_page() {
-        navigateTo.theDuckDuckGoHomePage();
+    @Given("^(?:.*) is researching things on the internet")
+    public void i_am_on_the_Wikipedia_home_page() {
+        navigateTo.theHomePage();
     }
 
-    @When("s?he searches for \"(.*)\"")				
+    @When("she/he looks up {string}")
     public void i_search_for(String term) {
         searchFor.term(term);
     }
 
-    @Then("all the result titles should contain the word \"(.*)\"")
+    @Then("she/he should see information about {string}")
     public void all_the_result_titles_should_contain_the_word(String term) {
-        assertThat(searchResult.titles())
-                .matches(results -> results.size() > 0)
-                .allMatch(title ->  
-                         textOf(title).containsIgnoringCase(term));
+        assertThat(searchResult.displayed()).contains(term);
     }
 ```
-
-### Lean Page Objects and Action Classes
-The glue code shown above uses Serenity step libraries as _action classes_ to make the tests easier to read, and to improve maintainability.
 
 These classes are declared using the Serenity `@Steps` annotation, shown below:
 ```java
@@ -143,19 +136,19 @@ The `NavigateTo` class is an example of a very simple action class. In a larger 
 ```java
 public class NavigateTo {
 
-    DuckDuckGoHomePage duckDuckGoHomePage;
+    WikipediaHomePage homePage;
 
-    @Step("Open the DuckDuckGo home page")
-    public void theDuckDuckGoHomePage() {
-        duckDuckGoHomePage.open();
+    @Step("Open the Wikipedia home page")
+    public void theHomePage() {
+        homePage.open();
     }
 }
 ```
 
 It does this using a standard Serenity Page Object. Page Objects are often very minimal, storing just the URL of the page itself:
 ```java
-@DefaultUrl("https://duckduckgo.com")
-class DuckDuckGoHomePage extends PageObject {}
+@DefaultUrl("https://wikipedia.org")
+public class WikipediaHomePage extends PageObject {}
 ```
 
 The second class, `SearchFor`, is an interaction class. It needs to interact with the web page, and to enable this, we make the class extend the Serenity `UIInteractionSteps`. This gives the class full access to the powerful Serenity WebDriver API, including the `$()` method used below, which locates a web element using a `By` locator or an XPath or CSS expression:
@@ -165,8 +158,7 @@ public class SearchFor extends UIInteractionSteps {
     @Step("Search for term {0}")
     public void term(String term) {
         $(SearchForm.SEARCH_FIELD).clear();
-        $(SearchForm.SEARCH_FIELD).type(term);
-        $(SearchForm.SEARCH_BUTTON).click();
+        $(SearchForm.SEARCH_FIELD).sendKeys(term, Keys.ENTER);
     }
 }
 ```
@@ -174,37 +166,27 @@ public class SearchFor extends UIInteractionSteps {
 The `SearchForm` class is typical of a light-weight Page Object: it is responsible uniquely for locating elements on the page, and it does this by defining locators or occasionally by resolving web elements dynamically.
 ```java
 class SearchForm {
-    static By SEARCH_FIELD = By.cssSelector(".js-search-input");
-    static By SEARCH_BUTTON = By.cssSelector(".js-search-button");
+    static By SEARCH_FIELD = By.cssSelector("#searchInput");
 }
 ```
 
 The last step library class used in the step definition code is the `SearchResult` class. The job of this class is to query the web page, and retrieve a list of search results that we can use in the AssertJ assertion at the end of the test. This class also extends `UIInteractionSteps` and
 ```java
 public class SearchResult extends UIInteractionSteps {
-    public List<String> titles() {
-        return findAll(SearchResultList.RESULT_TITLES)
-                .stream()
-                .map(WebElementFacade::getTextContent)
-                .collect(Collectors.toList());
+    public String displayed() {
+        return find(WikipediaArticle.HEADING).getText();
     }
 }
 ```
 
-The `SearchResultList` class is a lean Page Object that locates the search result titles on the results page:
+The `WikipediaArticle` class is a lean Page Object that locates the article titles on the results page:
 ```java
-class SearchResultList {
-    static By RESULT_TITLES = By.cssSelector(".result__title");
+public class WikipediaArticle {
+    public static final By HEADING =  By.id("firstHeading");
 }
 ```
 
 The main advantage of the approach used in this example is not in the lines of code written, although Serenity does reduce a lot of the boilerplate code that you would normally need to write in a web test. The real advantage is in the use of many small, stable classes, each of which focuses on a single job. This application of the _Single Responsibility Principle_ goes a long way to making the test code more stable, easier to understand, and easier to maintain.
-
-## The Screenplay starter project
-If you prefer to use the Screenplay pattern, or want to try it out, check out the _screenplay_ branch instead of the _master_ branch. In this version of the starter project, the same scenario is implemented using the Screenplay pattern.
-
-
-The Lean Page Objects/Action Classes approach proposes a gentler learning curve, but still provides significant advantages in terms of maintainability and reusability.
 
 ## Executing the tests
 To run the sample project, you can either just run the `CucumberTestSuite` test runner class, or run either `mvn verify` or `gradle test` from the command line.
