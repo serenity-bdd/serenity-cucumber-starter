@@ -1,5 +1,6 @@
 target/
 build
+out
 .gradle
 pom.xml.tag
 pom.xml.releaseBackup
