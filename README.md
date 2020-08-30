@@ -25,18 +25,79 @@ src
 Serenity 2.2.13 introduced integration with WebdriverManager to download webdriver binaries.
 
 ## The sample scenario
-Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the DuckDuckGo search engine:
+Both variations of the sample project uses the sample Cucumber scenario. In this scenario, Sergey (who likes to search for stuff) is performing a search on the internet:
 
 ```Gherkin
 Feature: Search by keyword
 
   Scenario: Searching for a term
-    Given Sergey is on the DuckDuckGo home page
-    When he searches for "cucumber"
-    Then all the result titles should contain the word "cucumber"
+    Given Sergey is researching things on the internet
+    When he looks up "Cucumber"
+    Then he should see information about "Cucumber"
 ```
 
+### The Screenplay implementation
+The sample code in the master branch uses the Screenplay pattern. The Screenplay pattern describes tests in terms of actors and the tasks they perform. Tasks are represented as objects performed by an actor, rather than methods. This makes them more flexible and composable, at the cost of being a bit more wordy. Here is an example:
+```java
+    @Given("{actor} is researching things on the internet")
+    public void researchingThings(Actor actor) {
+        actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
+    }
 
+    @When("{actor} looks up {string}")
+    public void searchesFor(Actor actor, String term) {
+        actor.attemptsTo(
+                LookForInformation.about(term)
+        );
+    }
+
+    @Then("{actor} should see information about {string}")
+    public void should_see_information_about(Actor actor, String term) {
+        actor.attemptsTo(
+                Ensure.that(WikipediaArticle.HEADING).hasText(term)
+        );
+    }
+```
+
+Screenplay classes emphasise reusable components and a very readable declarative style, whereas Lean Page Objects and Action Classes (that you can see further down) opt for a more imperative style.
+
+The `NavigateTo` class is responsible for opening the Wikipedia home page:
+```java
+public class NavigateTo {
+    public static Performable theWikipediaHomePage() {
+        return Task.where("{0} opens the Wikipedia home page",
+                Open.browserOn().the(WikipediaHomePage.class));
+    }
+}
+```
+
+The `LookForInformation` class does the actual search:
+```java
+public class LookForInformation {
+    public static Performable about(String searchTerm) {
+        return Task.where("{0} searches for '" + searchTerm + "'",
+                Enter.theValue(searchTerm)
+                        .into(SearchForm.SEARCH_FIELD)
+                        .thenHit(Keys.ENTER)
+        );
+    }
+}
+```
+
+In Screenplay, we keep track of locators in light weight page or component objects, like this one:
+```java
+class SearchForm {
+    static Target SEARCH_FIELD = Target.the("search field")
+                                       .locatedBy("#searchInput");
+
+}
+```
+
+The Screenplay DSL is rich and flexible, and well suited to teams working on large test automation projects with many team members, and who are reasonably comfortable with Java and design patterns. 
+
+### The Action Classes implementation.
+
+-----------
 The glue code for this scenario looks this this:
 
 ```java
@@ -142,79 +203,8 @@ The main advantage of the approach used in this example is not in the lines of c
 ## The Screenplay starter project
 If you prefer to use the Screenplay pattern, or want to try it out, check out the _screenplay_ branch instead of the _master_ branch. In this version of the starter project, the same scenario is implemented using the Screenplay pattern.
 
-The Screenplay pattern describes tests in terms of actors and the tasks they perform. Tasks are represented as objects performed by an actor, rather than methods. This makes them more flexible and composable, at the cost of being a bit more wordy. Here is an example:
-```java
-    @Before
-    public void setTheStage() {
-        OnStage.setTheStage(new OnlineCast());
-    }
 
-    @Given("^(.*) is on the DuckDuckGo home page")
-    public void on_the_DuckDuckGo_home_page(String actor) {
-        theActorCalled(actor).attemptsTo(
-            NavigateTo.theDuckDuckGoHomePage()
-        );
-    }
-
-    @When("she/he searches for {string}")
-    public void search_for(String term) {
-        theActorInTheSpotlight().attemptsTo(
-             SearchFor.term(term)
-        );
-    }
-
-    @Then("all the result titles should contain the word {string}")
-    public void all_the_result_titles_should_contain_the_word(String term) {
-        theActorInTheSpotlight().should(
-                seeThat("search result titles",
-                        SearchResult.titles(), hasSize(greaterThan(0))),
-                seeThat("search result titles",
-                        SearchResult.titles(), everyItem(containsIgnoringCase(term)))
-        );
-    }
-```
-
-In both approaches, the Page Objects very close or identical. The differences are mainly in the action classes. Screenplay classes emphasise reusable components and a very readable declarative style, whereas Lean Page Objects and Action Classes opt for a more imperative style.
-
-The `NavigateTo` class performs the same role as it’s equivalent in the Lean Page Object/Action Class version, and looks quite similar:
-```java
-public class NavigateTo  {
-
-    public static Performable theDuckDuckGoHomePage() {
-        return Task.where("{0} opens the DuckDuckGo home page",
-                Open.browserOn().the(DuckDuckGoHomePage.class)
-        );
-    }
-}
-```
-
-The `SearchFor` class is also similar: it is shown below:
-```java
-public class SearchFor {
-
-    public static Performable term(String term) {
-        return Task.where("{0} attempts to search for #term",
-                Clear.field(SearchForm.SEARCH_FIELD),
-                Enter.theValue(term).into(SearchForm.SEARCH_FIELD),
-                Click.on(SearchForm.SEARCH_BUTTON)
-        ).with("term").of(term);
-    }
-}
-```
-
-In Screenplay, there is a clear distinction between actions (which change the system state) and questions (which read the system state). In Screenplay, we fetch the search results using a Question class, like this:
-```java
-public class SearchResult {
-    public static Question<List<String>> titles() {
-        return actor ->  
-                 TextContent.of(SearchResultList.RESULT_TITLES)
-                            .viewedBy(actor)
-                            .asList();
-    }
-}
-```
-
-The Screenplay DSL is rich and flexible, and well suited to teams working on large test automation projects with many team members, and who are reasonably comfortable with Java and design patterns. The Lean Page Objects/Action Classes approach proposes a gentler learning curve, but still provides significant advantages in terms of maintainability and reusability.
+The Lean Page Objects/Action Classes approach proposes a gentler learning curve, but still provides significant advantages in terms of maintainability and reusability.
 
 ## Executing the tests
 To run the sample project, you can either just run the `CucumberTestSuite` test runner class, or run either `mvn verify` or `gradle test` from the command line.
