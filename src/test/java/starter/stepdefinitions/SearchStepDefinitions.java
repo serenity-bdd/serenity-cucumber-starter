@@ -15,11 +15,6 @@ import starter.search.WikipediaArticle;
 
 public class SearchStepDefinitions {
 
-    @Before
-    public void setTheStage() {
-        OnStage.setTheStage(new OnlineCast());
-    }
-
     @Given("{actor} is researching things on the internet")
     public void researchingThings(Actor actor) {
         actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
