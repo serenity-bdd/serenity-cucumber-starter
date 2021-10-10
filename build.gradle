@@ -1,24 +1,25 @@
 defaultTasks 'clean', 'test', 'aggregate'
 
 repositories {
-    mavenLocal()
-    jcenter()
+    mavenCentral()
 }
 
 buildscript {
-    repositories {
-        mavenLocal()
-        jcenter()
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.6.0")
-    }
+  }
+  dependencies {
+    classpath "net.serenity-bdd:serenity-gradle-plugin:2.6.0"
+  }
 }
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -33,9 +34,9 @@ ext {
 }
 
 dependencies {
-    compile "ch.qos.logback:logback-classic:${logbackVersion}"
+    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
-    testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
             "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
