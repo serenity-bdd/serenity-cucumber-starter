@@ -11,7 +11,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "net.serenity-bdd:serenity-gradle-plugin:3.0.2"
+    classpath "net.serenity-bdd:serenity-gradle-plugin:3.0.5"
   }
 }
 
@@ -42,6 +42,9 @@ dependencies {
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
             "junit:junit:${junitVersion}",
+            "org.junit.platform:junit-platform-launcher:1.8.1",
+            "org.junit.jupiter:junit-jupiter-engine:5.8.1",
+            "org.junit.vintage:junit-vintage-engine:5.8.1",
             "org.assertj:assertj-core:${assertJVersion}"
 }
 

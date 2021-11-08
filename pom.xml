@@ -11,9 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>3.0.2</serenity.version>
-        <serenity.maven.version>3.0.2</serenity.maven.version>
-        <serenity.cucumber.version>3.0.2</serenity.cucumber.version>
+        <serenity.version>3.0.5</serenity.version>
+        <serenity.maven.version>3.0.5</serenity.maven.version>
+        <serenity.cucumber.version>3.0.5</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
