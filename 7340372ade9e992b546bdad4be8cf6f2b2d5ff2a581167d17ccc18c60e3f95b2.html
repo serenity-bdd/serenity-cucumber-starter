@@ -62,8 +62,11 @@
 <!--CHART.JS-->
 <script src="chartjs/chart.js"></script>
 <script src="chartjs/chartjs-plugin-datalabels@2.0.0"></script>
-<script src="chartjs/chartjs-plugin-doughnutlabel.min.js"></script>
 <script src="chartjs/patternomaly.min.js"></script>
+<script>
+    // Register the plugin to all charts:
+    Chart.register(ChartDataLabels);
+</script>
 <!-- JQuery-UI -->
 <link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
 <script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
@@ -216,7 +219,7 @@
             <a href="#"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 30-11-2021 16:32</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 04-12-2021 17:04</span>
     <br style="clear:left"/>
 </div>
 
@@ -319,7 +322,7 @@
 
                                                     <h3>Scenarios</h3>
 
-                                                        <a name="04f4f42a-4adc-446e-8681-2811f1f9b74a"></a>
+                                                        <a name="67fb6add-ea19-4f69-9090-38203d8fc279"></a>
 
 
                                                             <div class="scenario-docs card" id="d0f15194dbe6ce8bfedd1dd94046026e8255f691bc5d74b15aed36bbc2e59dfb">
@@ -399,8 +402,8 @@
                                                                         <a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a>
                                                                 </td>
                                                                 <td>3</td>
-                                                                <td>16:32:46</td>
-                                                                <td>5s 891ms</td>
+                                                                <td>17:04:06</td>
+                                                                <td>5s 725ms</td>
                                                                 <td>
                                                                         <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                             style="display:none">SUCCESS</span>
@@ -432,7 +435,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <span class="version">Serenity BDD version 3.1.1</span>
+                    <span class="version">Serenity BDD version 3.1.5</span>
                 </div>
             </div>
         </div>
@@ -441,9 +444,6 @@
 <!-- Chart data -->
     <!-- PIE CHART -->
     <script>
-
-        // Register the plugin to all charts:
-        Chart.register(ChartDataLabels);
 
         // The results pie chart
         const outcomeChartCtx = document.getElementById('resultChart');
@@ -539,9 +539,6 @@
 
     <!-- SUMMARY BAR CHART -->
     <script>
-
-        // Register the plugin to all charts:
-        Chart.register(ChartDataLabels);
 
         // The Severity bar chart
         const severityChartCtx = document.getElementById('severityChart');
