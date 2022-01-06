@@ -11,7 +11,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "net.serenity-bdd:serenity-gradle-plugin:3.1.5"
+    classpath "net.serenity-bdd:serenity-gradle-plugin:3.1.15"
   }
 }
 
@@ -26,8 +26,8 @@ targetCompatibility = 1.8
 
 ext {
     slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.1.5'
-    serenityCucumberVersion = '3.1.5'
+    serenityCoreVersion = '3.1.15'
+    serenityCucumberVersion = '3.1.15'
     junitVersion = '4.13.1'
     assertJVersion = '3.8.0'
     logbackVersion = '1.2.3'
@@ -42,9 +42,9 @@ dependencies {
             "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
             "junit:junit:${junitVersion}",
-            "org.junit.platform:junit-platform-launcher:1.8.1",
-            "org.junit.jupiter:junit-jupiter-engine:5.8.1",
-            "org.junit.vintage:junit-vintage-engine:5.8.1",
+            "org.junit.platform:junit-platform-launcher:1.8.2",
+            "org.junit.jupiter:junit-jupiter-engine:5.8.2",
+            "org.junit.vintage:junit-vintage-engine:5.8.2",
             "org.assertj:assertj-core:${assertJVersion}"
 }
 
