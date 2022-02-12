@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>3.1.15</serenity.version>
+        <serenity.version>3.2.0</serenity.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.0.13</version>
+            <version>1.2.10</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
