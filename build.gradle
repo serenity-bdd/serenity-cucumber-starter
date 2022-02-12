@@ -53,6 +53,14 @@ test {
     systemProperties System.getProperties()
 }
 
+serenity {
+    // Specify the root package of any JUnit acceptance tests to appear in the Serenity report
+    testRoot = "starter"
+    // Specify the root directory of any Cucumber feature files
+    requirementsDir = "src/test/resources/features"
+
+}
+
 gradle.startParameter.continueOnFailure = true
 
 test.finalizedBy(aggregate)
