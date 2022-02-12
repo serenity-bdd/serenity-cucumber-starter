@@ -142,7 +142,7 @@
             <a href="#"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 06-01-2022 07:46:52</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 12-02-2022 08:27:26</span>
     <br style="clear:left"/>
 </div>
 
@@ -156,36 +156,45 @@
 
 
 
-<h4 class="requireent-type-heading">Features</h4>
+        <script>
+            $(document).ready(function () {
 
-<table class="scenario-result table" id="requirements-table">
-    <thead>
+                $('#requirements-table').DataTable({
+                    "order": [[0, "asc",], [3, "asc",]],
+                    "pageLength": 10,
+                    "language": {
+                        searchPlaceholder: "Filter",
+                        search: ""
+                    },
+                });
+            });
+        </script>
+    <h4 class="requirement-type-heading">Features</h4>
+
+    <table class="scenario-result table" id="requirements-table">
+        <thead>
         <tr>
             <th class="requirement-name-column" width="60%">Feature</th>
-            <th>ID</th>
-            <th>Automated Tests</th>
-                <th>Manual Tests</th>
-            <th>Results</th>
+            <th style="width:1em;">Test&nbsp;Cases</th>
+            <th style="width:1em;">Scenarios</th>
+            <th style="width:1em;">%&nbsp;Pass</th>
+            <th style="width:1em;">Result</th>
             <th>Coverage</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
 
-        <tr>
-            <td> 
-                <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a></span>
-            </td>
-            <td> 
-                
-            </td>
-            <td>1</td>
-            <td>0</td>
-            <td>
-                <span class="status_icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a></span>
-                <span style="display:none">1</span>
-            </td>
+            <tr>
+                <td> <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a></td>
+                <td>1</td>
+                <td>1</td>
+                <td>100%</td>
+                <td>
+                    <span class="status_icon"><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a></span>
+                    <span style="display:none">1</span>
+                </td>
 
-            <td width="165px">
+                <td width="165px">
 
 
 <table>
@@ -311,10 +320,10 @@
         </td>
     </tr>
 </table>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
             </div>
         </div>
@@ -325,7 +334,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 3.1.15</span>
+            <span class="version">Serenity BDD version 3.2.0</span>
         </div>
     </div>
 </div>
