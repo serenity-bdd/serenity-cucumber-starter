@@ -1,66 +1,22 @@
-defaultTasks 'clean', 'test', 'aggregate'
-
-repositories {
-    mavenCentral()
-}
-
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "net.serenity-bdd:serenity-gradle-plugin:3.3.0"
-  }
-}
-
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-ext {
-    slf4jVersion = '1.7.7'
-    serenityCoreVersion = '3.3.0'
-    serenityCucumberVersion = '3.3.0'
-    junitVersion = '4.13.1'
-    assertJVersion = '3.23.1'
-    logbackVersion = '1.2.10'
-}
-
-dependencies {
-    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
-
-    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-cucumber:${serenityCucumberVersion}",
-            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
-            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
-            "junit:junit:${junitVersion}",
-            "org.junit.platform:junit-platform-launcher:1.8.2",
-            "org.junit.jupiter:junit-jupiter-engine:5.8.2",
-            "org.junit.vintage:junit-vintage-engine:5.8.2",
-            "org.assertj:assertj-core:${assertJVersion}"
-}
-
-test {
-    testLogging.showStandardStreams = true
-    systemProperties System.getProperties()
-}
-
 serenity {
-    // Specify the root package of any JUnit acceptance tests to appear in the Serenity report
-    testRoot = "starter"
-    // Specify the root directory of any Cucumber feature files
-    requirementsDir = "src/test/resources/features"
-
+    tag.failures = "true"
+    report {
+        accessibility = true
+        durations = "1,2,4,8,15,30,60"
+        hide.empty.requirements = true
+        exclude.tags = "resetappstate,singlebrowser,manual"
+    }
 }
 
-gradle.startParameter.continueOnFailure = true
+headless.mode = true
 
-test.finalizedBy(aggregate)
+webdriver {
+    driver = chrome
+    capabilities {
+        browserName = "chrome"
+        "goog:chromeOptions" {
+            args = ["test-type", "ignore-certificate-errors", "--window-size=1000,800"
+                    "incognito", "disable-infobars", "disable-gpu", "disable-default-apps", "disable-popup-blocking"]
+        }
+    }
+}
