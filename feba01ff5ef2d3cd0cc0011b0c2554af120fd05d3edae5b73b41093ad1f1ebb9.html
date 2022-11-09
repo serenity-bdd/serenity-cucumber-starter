@@ -106,13 +106,16 @@
 
         $(document).ready(function () {
 
-            var scenarioTable = $('.scenario-result-table').DataTable({
+            $('.scenario-result-table').DataTable({
 
                 "order": [],
                 "language": {
                     searchPlaceholder: "Filter",
                     search: ""
-                }
+                },
+                columnDefs: [
+                    {type: 'time-elapsed-dhms', targets: 4}
+                ]
             });
 
             $('.example-table table').DataTable({
@@ -218,7 +221,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 01-11-2022 12:04</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 09-11-2022 20:37</span>
     <br style="clear:left"/>
 </div>
 
@@ -328,26 +331,22 @@
                                                             <th class="test-name-column">Scenario</th>
                                                             <th>Steps</th>
                                                             <th>Started</th>
-                                                            <th>Duration</th>
+                                                            <th>Total Duration</th>
                                                             <th>Result</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr class="scenario-result SUCCESS">
+                                                                <tr class="scenario-result SUCCESS">
                                                                     <td>
                                                                             <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
                                                                     </td>
-                                                                <td>
-                                                                        <a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a>
-                                                                </td>
-                                                                <td>3</td>
-                                                                <td>12:04:08</td>
-                                                                <td>8s 739ms</td>
-                                                                <td>
-                                                                        <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                            style="display:none">SUCCESS</span>
-                                                                                                                                    </td>
-                                                            </tr>
+                                                                    <td><a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a></td>
+                                                                    <td>3</td>
+                                                                    <td>20:37:32</td>
+                                                                    <td>7s 705ms</td>
+                                                                    <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                                    </td>
+                                                                </tr>
                                                         </tbody>
                                                     </table>
 
@@ -374,7 +373,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <span class="version">Serenity BDD version 3.3.10</span>
+                    <span class="version">Serenity BDD version 3.4.2</span>
                 </div>
             </div>
         </div>
@@ -389,17 +388,17 @@
 
         // Options define for display value on top of bars
         const outcomeDetailsReports = [
-            { title: 'Passing Scenarios', link: "91d4dc6ccd943e5bb1bd56d50465653792a610f1dacdbee1e9b27b800a0c7727.html" },
-            { title: 'Pending Scenarios', link: "67bbd16ef126c9e2e717fe105701cf13ef391418c7623cede93e7ef19b35f057.html" },
-            { title: 'Ignored Scenarios', link: "1d0ac0ecd34ec815db983ed905d28a554512464f8e766f6c5e92c8a8dff859e6.html" },
-            { title: 'Skipped Scenarios', link: "04120cfc0d64376da72183b6657fc9d2e9b481cd95086fe733bec1e43e5ac20f.html" },
-            { title: 'Aborted Scenarios',  link: "317da93c83db78eb6942e4ce0c8dd61112b99986578348560af86dd57de34706.html"},
-            { title: 'Failed Scenarios', link: "3d3c26a52fe72a2447ab0cbc74a2db63bacc12b668e0c340a05b4c81d72b0fc7.html"  },
-            { title: 'Broken Scenarios', link: "99b8b9d6f06dbe6060535707fb42ef5af55615cf9c23b0017d657e65c0b21425.html"    },
-            { title: 'Compromised Scenarios',  link: "88fa28391e12c50d1853a9e3cea38838a33315b5f24a89935a48b870fcca5d48.html" },
+            { title: 'Passing Test Cases', link: "91d4dc6ccd943e5bb1bd56d50465653792a610f1dacdbee1e9b27b800a0c7727.html" },
+            { title: 'Pending Test Cases', link: "67bbd16ef126c9e2e717fe105701cf13ef391418c7623cede93e7ef19b35f057.html" },
+            { title: 'Ignored Test Cases', link: "1d0ac0ecd34ec815db983ed905d28a554512464f8e766f6c5e92c8a8dff859e6.html" },
+            { title: 'Skipped Test Cases', link: "04120cfc0d64376da72183b6657fc9d2e9b481cd95086fe733bec1e43e5ac20f.html" },
+            { title: 'Aborted Test Cases',  link: "317da93c83db78eb6942e4ce0c8dd61112b99986578348560af86dd57de34706.html"},
+            { title: 'Failed Test Cases', link: "3d3c26a52fe72a2447ab0cbc74a2db63bacc12b668e0c340a05b4c81d72b0fc7.html"  },
+            { title: 'Broken Test Cases', link: "99b8b9d6f06dbe6060535707fb42ef5af55615cf9c23b0017d657e65c0b21425.html"    },
+            { title: 'Compromised Test Cases',  link: "88fa28391e12c50d1853a9e3cea38838a33315b5f24a89935a48b870fcca5d48.html" },
         ]
         const outcomeData = {
-            labels: ['Passing Scenarios', 'Pending Scenarios', 'Ignored Scenarios', 'Skipped Scenarios', 'Aborted Scenarios', 'Failed Scenarios', 'Broken Scenarios', 'Compromised Scenarios','Undefined Scenarios'],
+            labels: ['Passing Test Cases', 'Pending Test Cases', 'Ignored Test Cases', 'Skipped Test Cases', 'Aborted Test Cases', 'Failed Test Cases', 'Broken Test Cases', 'Compromised Test Cases','Undefined Test Cases'],
             datasets: [{
                 label: 'Test Results',
                 fill: false,
@@ -483,18 +482,18 @@
 
         // Options define for display value on top of bars
         const requirementsOutcomeDetailsReports = [
-            { title: 'Passing Scenarios', link: "91d4dc6ccd943e5bb1bd56d50465653792a610f1dacdbee1e9b27b800a0c7727.html" },
-            { title: 'Pending Scenarios', link: "67bbd16ef126c9e2e717fe105701cf13ef391418c7623cede93e7ef19b35f057.html" },
-            { title: 'Ignored Scenarios', link: "1d0ac0ecd34ec815db983ed905d28a554512464f8e766f6c5e92c8a8dff859e6.html" },
-            { title: 'Skipped Scenarios', link: "04120cfc0d64376da72183b6657fc9d2e9b481cd95086fe733bec1e43e5ac20f.html" },
-            { title: 'Aborted Scenarios',  link: "317da93c83db78eb6942e4ce0c8dd61112b99986578348560af86dd57de34706.html"},
-            { title: 'Failed Scenarios', link: "3d3c26a52fe72a2447ab0cbc74a2db63bacc12b668e0c340a05b4c81d72b0fc7.html"  },
-            { title: 'Broken Scenarios', link: "99b8b9d6f06dbe6060535707fb42ef5af55615cf9c23b0017d657e65c0b21425.html"    },
-            { title: 'Compromised Scenarios',  link: "88fa28391e12c50d1853a9e3cea38838a33315b5f24a89935a48b870fcca5d48.html" },
-            { title: 'Undefined Scenarios',  link: "" },
+            { title: 'Passing Test Cases', link: "91d4dc6ccd943e5bb1bd56d50465653792a610f1dacdbee1e9b27b800a0c7727.html" },
+            { title: 'Pending Test Cases', link: "67bbd16ef126c9e2e717fe105701cf13ef391418c7623cede93e7ef19b35f057.html" },
+            { title: 'Ignored Test Cases', link: "1d0ac0ecd34ec815db983ed905d28a554512464f8e766f6c5e92c8a8dff859e6.html" },
+            { title: 'Skipped Test Cases', link: "04120cfc0d64376da72183b6657fc9d2e9b481cd95086fe733bec1e43e5ac20f.html" },
+            { title: 'Aborted Test Cases',  link: "317da93c83db78eb6942e4ce0c8dd61112b99986578348560af86dd57de34706.html"},
+            { title: 'Failed Test Cases', link: "3d3c26a52fe72a2447ab0cbc74a2db63bacc12b668e0c340a05b4c81d72b0fc7.html"  },
+            { title: 'Broken Test Cases', link: "99b8b9d6f06dbe6060535707fb42ef5af55615cf9c23b0017d657e65c0b21425.html"    },
+            { title: 'Compromised Test Cases',  link: "88fa28391e12c50d1853a9e3cea38838a33315b5f24a89935a48b870fcca5d48.html" },
+            { title: 'Undefined Test Cases',  link: "" },
         ]
         const requirementsOutcomeData = {
-            labels: ['Passing Scenarios', 'Pending Scenarios', 'Ignored Scenarios', 'Skipped Scenarios', 'Aborted Scenarios', 'Failed Scenarios', 'Broken Scenarios', 'Compromised Scenarios','Undefined Scenarios'],
+            labels: ['Passing Test Cases', 'Pending Test Cases', 'Ignored Test Cases', 'Skipped Test Cases', 'Aborted Test Cases', 'Failed Test Cases', 'Broken Test Cases', 'Compromised Test Cases','Undefined Test Cases'],
             datasets: [{
                 label: 'Feature Coverage',
                 fill: false,
