@@ -1,22 +1,46 @@
-serenity {
-    tag.failures = "true"
-    report {
-        accessibility = true
-        durations = "1,2,4,8,15,30,60"
-        hide.empty.requirements = true
-        exclude.tags = "resetappstate,singlebrowser,manual"
-    }
+plugins {
+    id "net.serenity-bdd.serenity-gradle-plugin" version "3.5.1"
+    id 'java'
+    id 'eclipse'
+    id 'idea'
 }
 
-headless.mode = true
+defaultTasks 'clean','test','aggregate'
 
-webdriver {
-    driver = chrome
-    capabilities {
-        browserName = "chrome"
-        "goog:chromeOptions" {
-            args = ["test-type", "ignore-certificate-errors", "--window-size=1000,800"
-                    "incognito", "disable-infobars", "disable-gpu", "disable-default-apps", "disable-popup-blocking"]
-        }
-    }
+repositories {
+    mavenCentral()
 }
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '3.5.1'
+    junitVersion = '5.8.2'
+    assertJVersion = '3.22.0'
+    logbackVersion = '1.2.10'
+}
+
+dependencies {
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+                "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}",
+                "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+                "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
+                "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+                "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}",
+                "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
+                "org.assertj:assertj-core:${assertJVersion}",
+                "ch.qos.logback:logback-classic:${logbackVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+}
+
+test {
+    useJUnitPlatform()
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
