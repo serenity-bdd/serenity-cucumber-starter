@@ -31,9 +31,9 @@
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -73,9 +73,9 @@
 <!-- JQuery-UI -->
 <link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
 <script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -107,18 +107,23 @@
     <script class="code" type="text/javascript">$(document).ready(function () {
 
 
-        $('.scenario-result-table').DataTable({
-
-            "order": [[0, "asc",], [3, "asc",]],
-            "pageLength": 25,
-            "language": {
-                searchPlaceholder: "Filter",
-                search: ""
-            },
-            columnDefs: [
-                {type: 'time-elapsed-dhms', targets: 4}
-            ]
-        });
+            $("#scenario-results").DataTable({
+                "order": [[0, "asc",], [3, "asc",]],
+                "language": {
+                    searchPlaceholder: "Filter",
+                    search: ""
+                },
+                columnDefs: [
+                    {type: 'time-elapsed-dhms', targets: 4}
+                ]
+            })
+            $("#manual-scenario-results").DataTable({
+                "order": [[0, "asc",], [1, "asc",]],
+                "language": {
+                    searchPlaceholder: "Filter",
+                    search: ""
+                },
+            })
 
         // Results table
         $('#test-results-table').DataTable({
@@ -172,7 +177,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 09-11-2022 20:37:44</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 12-01-2023 12:09:49</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -188,7 +193,7 @@
                             <div class="test-count-summary">
                                 <div>
 
-                                    1 test in 1 scenario
+                                    1 test
 
                                      |
                                         <a href="01f5288b80adbd3af52a8ed68a4a616d3164f750229f80da1ef344382d948835.csv" title="Download CSV"> <i class="bi bi-cloud-arrow-down" title="Download CSV"></i></a>
@@ -240,43 +245,43 @@
                                                                         <td>
                                                                             <i class="bi bi-flag-fill"></i> Tests Started
                                                                         </td>
-                                                                        <td>Nov 09, 2022 20:37:32</td>
+                                                                        <td>Jan 12, 2023 12:09:29</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-stop-circle"></i> Tests Finished
                                                                         </td>
-                                                                        <td>Nov 09, 2022 20:37:40</td>
+                                                                        <td>Jan 12, 2023 12:09:44</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-stopwatch"></i> Total Duration
                                                                         </td>
-                                                                        <td>7s</td>
+                                                                        <td>15s</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-trophy"></i> Fastest Test
                                                                         </td>
-                                                                        <td>7s</td>
+                                                                        <td>15s</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-skip-start"></i> Slowest Test
                                                                         </td>
-                                                                        <td>7s</td>
+                                                                        <td>15s</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-stopwatch"></i> Average Execution Time
                                                                         </td>
-                                                                        <td>7s</td>
+                                                                        <td>15s</td>
                                                                     </tr>
                                                                     <tr scope="row">
                                                                         <td>
                                                                             <i class="bi bi-stopwatch-fill"></i> Total Execution Time
                                                                         </td>
-                                                                        <td>7s</td>
+                                                                        <td>15s</td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -390,8 +395,8 @@
                                                             </td>
                                                             <td><a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a></td>
                                                             <td>3</td>
-                                                            <td>20:37:32</td>
-                                                            <td>7s 705ms</td>
+                                                            <td>12:09:29</td>
+                                                            <td>15s 070ms</td>
                                                             <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
                                                             </td>
                                                         </tr>
@@ -427,7 +432,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 3.4.2</span>
+            <span class="version">Serenity BDD version 3.5.1</span>
         </div>
     </div>
 </div>
@@ -634,7 +639,7 @@
             datasets: [{
                 label: 'Number of tests per duration',
                 fill: false,
-                data: ['0','1','0','0','0','0','0','0'],
+                data: ['0','0','1','0','0','0','0','0'],
                 backgroundColor: 'rgba(83, 146, 255,0.5)',
                 borderColor: 'rgba(83, 146, 255, 1)',
             }]

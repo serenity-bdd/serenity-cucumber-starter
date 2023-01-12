@@ -28,9 +28,9 @@
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -70,9 +70,9 @@
 <!-- JQuery-UI -->
 <link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
 <script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.11.3/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.11.3/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.11.3/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -106,9 +106,8 @@
 
         $(document).ready(function () {
 
-            $('.scenario-result-table').DataTable({
-
-                "order": [],
+            $("#scenario-results").DataTable({
+                "order": [[0, "asc",], [3, "asc",]],
                 "language": {
                     searchPlaceholder: "Filter",
                     search: ""
@@ -116,7 +115,14 @@
                 columnDefs: [
                     {type: 'time-elapsed-dhms', targets: 4}
                 ]
-            });
+            })
+            $("#manual-scenario-results").DataTable({
+                "order": [[0, "asc",], [1, "asc",]],
+                "language": {
+                    searchPlaceholder: "Filter",
+                    search: ""
+                },
+            })
 
             $('.example-table table').DataTable({
                 searching: false,
@@ -222,7 +228,7 @@
             <a href="#"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 09-11-2022 20:37</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 12-01-2023 12:09</span>
     <br style="clear:left"/>
 </div>
 
@@ -326,16 +332,17 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                    <h3>Scenarios</h3>
+                                                <h3>Scenarios</h3>
 
-                                                        <a name="54dc636d-3309-4252-92e8-503dbbcc6c50"></a>
-                                                        <p class="rule-tags inline-tag">
-                                                        </p>
+                                                    <a name="d33e1040-d21e-4c15-877a-095248422709"></a>
+                                                    <p class="rule-tags inline-tag">
+                                                    </p>
 
 
-                                                            <div class="scenario-docs card" id="d0f15194dbe6ce8bfedd1dd94046026e8255f691bc5d74b15aed36bbc2e59dfb">
-                                                                <div class="scenario-docs card-header success" style="min-height:1.5em;">
-                                                                    <div>
+                                                        <div class="scenario-docs card" id="d0f15194dbe6ce8bfedd1dd94046026e8255f691bc5d74b15aed36bbc2e59dfb">
+                                                            <div class="scenario-docs card-header success"
+                                                                 style="min-height:1.5em;">
+                                                                <div>
                                                                         <span class="scenario-heading">
                                                                             <a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html"
                                                                                title="View test results">Scenario: Searching for a term</a>
@@ -344,22 +351,22 @@
                                                                         <span class="example-tags inline-tag">
                                                                         </span>
 
-                                                                        <span class="scenario-result-icon">
+                                                                    <span class="scenario-result-icon">
                                                                     
 
-                                                                                <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
                                                                         </span>
-                                                                    </div>
-
                                                                 </div>
-                                                                <div class="scenario-docs card-body">
-                                                                        <p>Given Sergey is researching things on the internet</p>
-                                                                        <p>When he looks up &quot;Cucumber&quot;</p>
-                                                                        <p>Then he should see information about &quot;Cucumber&quot;</p>
-                                                                    <div class="examples">
-                                                                    </div>
+
+                                                            </div>
+                                                            <div class="scenario-docs card-body">
+                                                                    <p>Given Sergey is researching things on the internet</p>
+                                                                    <p>When he looks up &quot;Cucumber&quot;</p>
+                                                                    <p>Then he should see information about &quot;Cucumber&quot;</p>
+                                                                <div class="examples">
                                                                 </div>
                                                             </div>
+                                                        </div>
                                             </div>
                                         </div>
                                     </div>
@@ -398,10 +405,10 @@
                                             <div class="col-sm-12">
                                                 <h3><i class="bi bi-gear"></i> Automated Tests</h3>
 
-                                                    <table class="scenario-result-table table"
-                                                           id="scenario-results">
+                                                    <table class="scenario-result-table table" id="scenario-results">
                                                         <thead>
                                                         <tr>
+                                                            <th>feature</th>
                                                             <th class="test-name-column">Scenario</th>
                                                             <th>Steps</th>
                                                             <th>Started</th>
@@ -414,11 +421,14 @@
                                                                     <td>
                                                                             <a href="c620621f4ffffe86384becca378697be976cd29eb61319d4311f6d505261b4f5.html">Search by keyword</a>
                                                                     </td>
-                                                                    <td><a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a></td>
+                                                                    <td>
+                                                                        <a href="35cfed838fce6a34547d061ef095dd6837e5024c11ea9a63e7b6112cef6d263f.html">Searching for a term</a>
+                                                                    </td>
                                                                     <td>3</td>
-                                                                    <td>20:37:32</td>
-                                                                    <td>7s 705ms</td>
-                                                                    <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                                    <td>12:09:29</td>
+                                                                    <td>15s 070ms</td>
+                                                                    <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
+                                                                                style="display:none">SUCCESS</span>
                                                                     </td>
                                                                 </tr>
                                                         </tbody>
@@ -447,7 +457,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <span class="version">Serenity BDD version 3.4.2</span>
+                    <span class="version">Serenity BDD version 3.5.1</span>
                 </div>
             </div>
         </div>
@@ -750,7 +760,7 @@
             datasets: [{
                 label: 'Number of tests per duration',
                 fill: false,
-                data: ['0','1','0','0','0','0','0','0'],
+                data: ['0','0','1','0','0','0','0','0'],
                 backgroundColor: 'rgba(83, 146, 255,0.5)',
                 borderColor: 'rgba(83, 146, 255, 1)',
             }]
