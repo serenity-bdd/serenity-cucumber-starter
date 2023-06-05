@@ -32,7 +32,7 @@ dependencies {
                 "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
                 "org.assertj:assertj-core:${assertJVersion}",
                 "ch.qos.logback:logback-classic:${logbackVersion}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${junitVersion}"
 }
 
 test {
