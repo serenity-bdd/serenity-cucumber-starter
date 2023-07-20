@@ -16,8 +16,9 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v1
       with:
-        distribution: 'zulu'
         java-version: '17'
+        distribution: 'adopt'
+        cache: maven
 
     - name: Cache the Maven packages to speed up build
       uses: actions/cache@v1
