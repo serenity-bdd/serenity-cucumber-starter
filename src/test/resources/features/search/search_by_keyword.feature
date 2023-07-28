@@ -1,6 +1,6 @@
 Feature: Search by keyword
 
-  @green @manual
+  @green
   Scenario: Searching for 'green'
     Given Sergey is researching things on the internet
     When he looks up "green"
@@ -10,4 +10,4 @@ Feature: Search by keyword
   Scenario: Searching for 'red'
     Given Sergey is researching things on the internet
     When he looks up "red"
-    Then he should see information about "orange"
+    Then he should see information about "red"
