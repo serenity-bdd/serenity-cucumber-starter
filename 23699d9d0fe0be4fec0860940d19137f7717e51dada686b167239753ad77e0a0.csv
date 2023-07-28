@@ -1,2 +1,3 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Search by keyword","Searching for 'red'","SUCCESS","2023-07-28T16:11:01.264026117Z[Etc/UTC]","0.0","0.55"
+"Search by keyword","Searching for 'green'","SUCCESS","2023-07-28T16:24:10.542874705Z[Etc/UTC]","0.0","5.26"
+"Search by keyword","Searching for 'red'","SUCCESS","2023-07-28T16:24:10.567151216Z[Etc/UTC]","0.0","4.52"
