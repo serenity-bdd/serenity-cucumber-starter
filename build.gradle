@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:3.9.7"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.9.8"
     }
 }
 
