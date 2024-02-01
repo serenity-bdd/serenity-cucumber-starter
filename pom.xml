@@ -143,7 +143,15 @@
                 <version>${serenity.version}</version>
                 <configuration>
                     <tags>${tags}</tags>
+                    <reports>single-page-html</reports>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>serenity-single-page-report</artifactId>
+                        <version>${serenity.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
