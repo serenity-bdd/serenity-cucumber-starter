@@ -115,7 +115,11 @@
                     search: ""
                 },
                 columnDefs: [
-                    {type: 'time-elapsed-dhms', targets: 5}
+                    {
+                        targets: 4,
+                        visible: false
+                    },
+                    {type: 'time-elapsed-dhms', targets: 6}
                 ]
             })
             $("#manual-scenario-results").DataTable({
@@ -124,6 +128,12 @@
                     searchPlaceholder: "Filter",
                     search: ""
                 },
+                columnDefs: [
+                    {
+                        targets: 4,
+                        visible: false
+                    },
+                ]
             })
 
             // Results table
@@ -142,7 +152,17 @@
             $(".feature-coverage-table").DataTable({
                 searching: true,
                 paging: false,
-                info: false
+                info: false,
+                language: {
+                    searchPlaceholder: "Filter",
+                    search: ""
+                },
+                columnDefs: [
+                    {
+                        targets: 2,
+                        visible: false
+                    },
+                ]
             });
 
             $(".feature-coverage-table-with-pagination").DataTable({
@@ -152,7 +172,13 @@
                 language: {
                     searchPlaceholder: "Filter",
                     search: ""
-                }
+                },
+                columnDefs: [
+                    {
+                        targets: 2,
+                        visible: false
+                    },
+                ]
             });
         });
     </script>
@@ -198,7 +224,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 04-04-2024 11:39:49</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 12-05-2024 16:28:02</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -295,14 +321,14 @@
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>Apr 04, 2024 11:39:43</td>
+                    <td>May 12, 2024 16:27:55</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>Apr 04, 2024 11:39:47</td>
+                    <td>May 12, 2024 16:28:00</td>
                 </tr>
                 <tr scope="row">
                     <td>
@@ -353,12 +379,12 @@
 
                                                                     <h4>Features</h4>
 
-                                                                    <table class="table feature-coverage-table"
-                                                                           id="Feature">
+                                                                    <table class="table feature-coverage-table" id="Feature" style="width:100%">
                                                                         <thead>
                                                                         <tr>
                                                                             <th>Feature</th>
                                                                             <th style="width:1em;">Scenarios</th>
+                                                                            <th style="width:1em;">StepsText</th>
                                                                             <th style="width:1em;">Test&nbsp;Cases</th>
                                                                             <th style="width:1em;">%&nbsp;Pass</th>
                                                                             <th style="width:1em;">Result</th>
@@ -371,6 +397,23 @@
                                                                                             <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html"> Search by keyword</a>
                                                                                     </td>
                                                                                     <td>2</td>
+                                                                                    <td>Given Sergey is researching things on the internet
+Sergey opens the DuckDuckGo home page
+Sergey opens the Duck duck go home page
+When he looks up "red"
+he searches for 'red'
+he enters 'red' then hits [ENTER] into search field
+Then he should see information about "red"
+he should see the title of the page that contains (ignoring case): <[red]>
+Given Sergey is researching things on the internet
+Sergey opens the DuckDuckGo home page
+Sergey opens the Duck duck go home page
+When he looks up "green"
+he searches for 'green'
+he enters 'green' then hits [ENTER] into search field
+Then he should see information about "green"
+he should see the title of the page that contains (ignoring case): <[green]>
+</td>
                                                                                     <td>2</td>
                                                                                     <td>100%</td>
                                                                                     <td>
@@ -476,7 +519,7 @@
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>Apr 04, 2024 11:39:43</td>
+                    <td>May 12, 2024 16:27:55</td>
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
@@ -488,7 +531,7 @@
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>Apr 04, 2024 11:39:47</td>
+                    <td>May 12, 2024 16:28:00</td>
                     <td>
                         <i class="bi bi-stopwatch-fill"></i> Total
                         Execution Time
@@ -502,14 +545,14 @@
 
                                                         <h3><i class="bi bi-gear"></i> Automated Scenarios</h3>
 
-                                                            <table class="scenario-result-table table"
-                                                                   id="scenario-results">
+                                                            <table class="scenario-result-table table" id="scenario-results" style="width:100%">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>feature</th>
                                                                     <th class="test-name-column">Scenario</th>
                                                                     <th>Context</th>
                                                                     <th>Steps</th>
+                                                                    <th>StepsText</th>
                                                                     <th>Started</th>
                                                                     <th>Total Duration</th>
                                                                     <th>Result</th>
@@ -520,14 +563,18 @@
                                                                         <td>
                                                                                 <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
                                                                         </td>
-                                                                        <td data-order="Searching for 'green'">
-                                                                                    <a href="8e6c75102905838eb9c416040be1b74e5a1e55e54ead3ad42ba6c6ec28784329.html">Searching for 'green'</a>
+                                                                        <td data-order="Searching for 'red'">
+                                                                                    <a href="a130de32e9bb7634ef328e7b715e25f884d2e00b196e6ae10bba19a55fbac223.html">Searching for 'red'</a>
                                                                         </td>
                                                                         <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-ubuntu' title='Linux'></i></span><span style="display:none">Chrome,linux</span>
                                                                         </td>
                                                                         <td>3</td>
-                                                                        <td data-order="1712230783">11:39:43</td>
-                                                                        <td>4s 064ms</td>
+                                                                        <td>Given Sergey is researching things on the internet
+When he looks up "red"
+Then he should see information about "red"
+</td>
+                                                                        <td data-order="1715531275">16:27:55</td>
+                                                                        <td>4s 633ms</td>
                                                                         <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                     style="display:none">SUCCESS</span>
                                                                         </td>
@@ -536,14 +583,18 @@
                                                                         <td>
                                                                                 <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
                                                                         </td>
-                                                                        <td data-order="Searching for 'red'">
-                                                                                    <a href="a130de32e9bb7634ef328e7b715e25f884d2e00b196e6ae10bba19a55fbac223.html">Searching for 'red'</a>
+                                                                        <td data-order="Searching for 'green'">
+                                                                                    <a href="8e6c75102905838eb9c416040be1b74e5a1e55e54ead3ad42ba6c6ec28784329.html">Searching for 'green'</a>
                                                                         </td>
                                                                         <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-ubuntu' title='Linux'></i></span><span style="display:none">Chrome,linux</span>
                                                                         </td>
                                                                         <td>3</td>
-                                                                        <td data-order="1712230783">11:39:43</td>
-                                                                        <td>4s 414ms</td>
+                                                                        <td>Given Sergey is researching things on the internet
+When he looks up "green"
+Then he should see information about "green"
+</td>
+                                                                        <td data-order="1715531275">16:27:55</td>
+                                                                        <td>4s 208ms</td>
                                                                         <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
                                                                                     style="display:none">SUCCESS</span>
                                                                         </td>
@@ -615,7 +666,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 4.1.6</span>
+            <span class="version">Serenity BDD version 4.1.12</span>
         </div>
     </div>
 </div>
