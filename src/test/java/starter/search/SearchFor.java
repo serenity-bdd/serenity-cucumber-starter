@@ -1,7 +1,7 @@
 package starter.search;
 
 import net.serenitybdd.core.steps.UIInteractionSteps;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.annotations.*;
 import org.openqa.selenium.Keys;
 
 public class SearchFor extends UIInteractionSteps {
