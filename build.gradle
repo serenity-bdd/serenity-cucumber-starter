@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:4.1.12"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.1"
     }
 }
 
@@ -26,12 +26,12 @@ sourceCompatibility = 16
 targetCompatibility = 16
 
 ext {
-    serenity_version = '4.1.12'
-    junit_platform_launcher_version="1.10.2"
+    serenity_version = '4.2.1'
+    junit_platform_launcher_version="1.11.0"
     cucumber_junit_platform_engine_version="7.16.1"
-    junit_platform_suite_version="1.10.2"
-    junit_jupiter_engine_version="5.10.2"
-    junit_vintage_engine_version="5.10.2"
+    junit_platform_suite_version="1.11.0"
+    junit_jupiter_engine_version="5.11.0"
+    junit_vintage_engine_version="5.11.0"
     logback_classic_version="1.2.10"
     assertj_core_version="3.23.1"
 }
