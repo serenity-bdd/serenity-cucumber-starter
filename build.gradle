@@ -13,6 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.13"
+        classpath "net.serenity-bdd:serenity-single-page-report:4.2.13"
     }
 }
 
@@ -57,6 +58,9 @@ test {
     useJUnitPlatform()
 }
 
+serenity {
+    reports = ["single-page-html"]
+}
 gradle.startParameter.continueOnFailure = true
 
-test.finalizedBy(aggregate)
+test.finalizedBy(aggregate, reports)
