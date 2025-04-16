@@ -12,8 +12,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.13"
-        classpath "net.serenity-bdd:serenity-single-page-report:4.2.13"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.22"
+        classpath "net.serenity-bdd:serenity-single-page-report:4.2.22"
     }
 }
 
@@ -27,7 +27,7 @@ sourceCompatibility = 16
 targetCompatibility = 16
 
 ext {
-    serenity_version = '4.2.13'
+    serenity_version = '4.2.22'
     junit_platform_launcher_version="1.11.4"
     cucumber_junit_platform_engine_version="7.20.1"
     junit_platform_suite_version="1.11.4"
