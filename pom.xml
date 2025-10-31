@@ -11,10 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>4.2.13</serenity.version>
-        <junit-vintage-engine.version>5.11.4</junit-vintage-engine.version>
-        <junit-platform-suite.version>1.11.4</junit-platform-suite.version>
-        <cucumber-junit-platform-engine.version>7.20.1</cucumber-junit-platform-engine.version>
+        <serenity.version>4.3.1</serenity.version>
+        <junit-vintage-engine.version>5.13.0</junit-vintage-engine.version>
+        <junit-platform-suite.version>1.13.0</junit-platform-suite.version>
+        <cucumber-junit-platform-engine.version>7.31.0</cucumber-junit-platform-engine.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
@@ -25,6 +25,11 @@
             <artifactId>serenity-core</artifactId>
             <version>${serenity.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.18.1</version>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
