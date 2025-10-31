@@ -12,8 +12,13 @@ buildscript {
         }
     }
     dependencies {
+<<<<<<< HEAD
         classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.30"
         classpath "net.serenity-bdd:serenity-single-page-report:4.2.30"
+=======
+        classpath "net.serenity-bdd:serenity-gradle-plugin:4.2.22"
+        classpath "net.serenity-bdd:serenity-single-page-report:4.2.22"
+>>>>>>> 18e6123f059f747e3b84b1e4921dbce759af8499
     }
 }
 
