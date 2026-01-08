@@ -20,13 +20,6 @@ jobs:
         distribution: 'adopt'
         cache: maven
 
-    - name: Cache the Maven packages to speed up build
-      uses: actions/cache@v4
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-
     - name: Build with Maven
       run: mvn -B verify --file pom.xml -Denvironment=with_screenshots
 
