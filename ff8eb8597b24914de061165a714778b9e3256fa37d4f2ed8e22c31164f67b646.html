@@ -27,14 +27,14 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
 <!-- JQuery -->
-<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
+<script type="text/javascript" src="scripts/jquery-3.7.1.min.js"></script><!-- Required Stylesheets -->
 <link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -72,11 +72,11 @@
     Chart.register(ChartDataLabels);
 </script>
 <!-- JQuery-UI -->
-<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
-<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="jquery-ui-1.14.1/jquery-ui.css" rel="Stylesheet" />
+<script type="text/javascript" src="jquery-ui-1.14.1/jquery-ui.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -108,18 +108,47 @@
 
     <script class="code" type="text/javascript">$(document).ready(function () {
 
+            $.fn.dataTable.ext.type.order['test-result-pre'] = function(data) {
+                // Extract the text from the hidden span (SUCCESS, FAILURE, etc.)
+                var match = data.match(/<span[^>]*style="display:none"[^>]*>(.*?)<\/span>/);
+                var result = match ? match[1].trim() : '';
+
+                // Define sort priority (failures first when ascending)
+                var order = {
+                    'FAILURE': 1,
+                    'ERROR': 2,
+                    'BROKEN': 3,
+                    'COMPROMISED': 4,
+                    'PENDING': 5,
+                    'IGNORED': 6,
+                    'SKIPPED': 7,
+                    'ABORTED': 8,
+                    'SUCCESS': 9
+                };
+
+                return order[result] || 99;
+            };
+
+            // Then modify your DataTable initialization
             $("#scenario-results").DataTable({
-                "order": [[0, "asc",], [1, "asc",], [2, "asc",]],
+                "order": [[0, "asc"], [1, "asc"], [2, "asc"]], // Keep your default sort order
                 "language": {
                     searchPlaceholder: "Filter",
                     search: ""
                 },
                 columnDefs: [
                     {
-                        targets: 4,
+                        targets: 4, // Started column
                         visible: false
                     },
-                    {type: 'time-elapsed-dhms', targets: 6}
+                    {
+                        type: 'time-elapsed-dhms',
+                        targets: 5 // Total Duration column (adjusted from 6 to 5)
+                    },
+                    {
+                        type: 'test-result',
+                        targets: 6 // Result column (changed from 7 to 6)
+                    }
                 ]
             })
             $("#manual-scenario-results").DataTable({
@@ -149,6 +178,27 @@
                 info: false
             });
 
+            $.fn.dataTable.ext.type.order['test-result-pre'] = function(data) {
+                // Extract the result type from the title attribute in the icon
+                var match = data.match(/title=['"]([^'"]+)['"]/);
+                var result = match ? match[1].trim() : '';
+
+                // Define sort priority (failures first when ascending)
+                var order = {
+                    'FAILURE': 1,
+                    'ERROR': 2,
+                    'BROKEN': 3,
+                    'COMPROMISED': 4,
+                    'PENDING': 5,
+                    'IGNORED': 6,
+                    'SKIPPED': 7,
+                    'ABORTED': 8,
+                    'SUCCESS': 9
+                };
+
+                return order[result] || 99;
+            };
+
             $(".feature-coverage-table").DataTable({
                 searching: true,
                 paging: false,
@@ -159,9 +209,9 @@
                 },
                 columnDefs: [
                     {
-                        targets: 2,
-                        visible: false
-                    },
+                        type: 'test-result',
+                        targets: 4  // Result column (5th column, index 4)
+                    }
                 ]
             });
 
@@ -173,12 +223,6 @@
                     searchPlaceholder: "Filter",
                     search: ""
                 },
-                columnDefs: [
-                    {
-                        targets: 2,
-                        visible: false
-                    },
-                ]
             });
         });
     </script>
@@ -229,7 +273,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 24-01-2025 08:28:29</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 08-01-2026 10:28:57</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -244,7 +288,7 @@
                         <td width="375px" valign="top">
                             <div class="test-count-summary">
                                 <div class="test-count-title">
-                                    1 test
+                                    3 tests
 
                                      |
                                         <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.csv" title="Download CSV"> <i class="bi bi-cloud-arrow-down"
@@ -317,60 +361,60 @@
                     <td>
                         <i class="bi bi-card-checklist"></i> Number of Scenarios
                     </td>
-                    <td>1</td>
+                    <td>3</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-caret-right"></i> Total Number of Test Cases
                     </td>
-                    <td>1</td>
+                    <td>3</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>Jan 24, 2025 08:28:22</td>
+                    <td>Jan 08, 2026 10:28:49</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>Jan 24, 2025 08:28:26</td>
+                    <td>Jan 08, 2026 10:28:51</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Total
                         Duration
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-trophy"></i> Fastest Test
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-skip-start"></i> Slowest
                         Test
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch-fill"></i> Total
                         Execution Time
                     </td>
-                    <td>3s</td>
+                    <td>5s</td>
                 </tr>
                 </tbody>
             </table>
@@ -392,7 +436,6 @@
                                                                         <tr>
                                                                             <th>Feature</th>
                                                                             <th style="width:1em;">Scenarios</th>
-                                                                            <th style="width:1em;">StepsText</th>
                                                                             <th style="width:1em;">Test&nbsp;Cases</th>
                                                                             <th style="width:1em;">%&nbsp;Pass</th>
                                                                             <th style="width:1em;">Result</th>
@@ -402,18 +445,55 @@
                                                                         <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                            <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html"> Search by keyword</a>
+                                                                                            <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html"> Search > Search by keyword</a>
                                                                                     </td>
                                                                                     <td>1</td>
-                                                                                    <td>Given Sergey is researching things on the internet
-Sergey opens the DuckDuckGo home page
-Sergey opens the Duck duck go home page
-When he looks up "red"
-he searches for 'red'
-he enters 'red' then hits [ENTER] into search field
-Then he should see information about "red"
-he should see the title of the page that contains (ignoring case): <[red]>
-</td>
+                                                                                    <td>1</td>
+                                                                                    <td>100%</td>
+                                                                                    <td>
+                                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="progress">
+                                                                                                <div class="progress-bar"
+                                                                                                     role="progressbar"
+                                                                                                     style="width: 100%; background-color: #b0cf73"
+                                                                                                     aria-valuenow="1"
+                                                                                                     title="100% success"
+                                                                                                     aria-valuemin="0"
+                                                                                                     aria-valuemax="100">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                            <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html"> Search > Search by keyword</a>
+                                                                                    </td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                                    <td>100%</td>
+                                                                                    <td>
+                                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="progress">
+                                                                                                <div class="progress-bar"
+                                                                                                     role="progressbar"
+                                                                                                     style="width: 100%; background-color: #b0cf73"
+                                                                                                     aria-valuenow="1"
+                                                                                                     title="100% success"
+                                                                                                     aria-valuemin="0"
+                                                                                                     aria-valuemax="100">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                            <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html"> Search > Search by keyword</a>
+                                                                                    </td>
+                                                                                    <td>1</td>
                                                                                     <td>1</td>
                                                                                     <td>100%</td>
                                                                                     <td>
@@ -447,7 +527,7 @@ he should see the title of the page that contains (ignoring case): <[red]>
                             <div>
                                     <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -459,7 +539,7 @@ he should see the title of the page that contains (ignoring case): <[red]>
                             <div>
                                     <a href="46b54d9084ba9783130da16408afb27a4e4620f6bd966e731510c7395b9ddf5c.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -482,22 +562,22 @@ he should see the title of the page that contains (ignoring case): <[red]>
                     <td>
                         <i class="bi bi-card-checklist"></i> Number of Scenarios
                     </td>
-                    <td>1</td>
+                    <td>3</td>
                     <td>
                         <i class="bi bi-stopwatch"></i> Total
                         Duration
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-caret-right"></i> Total Number of Test Cases
                     </td>
-                    <td>1</td>
+                    <td>3</td>
                     <td>
                         <i class="bi bi-trophy"></i> Fastest Test
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
@@ -508,30 +588,30 @@ he should see the title of the page that contains (ignoring case): <[red]>
                         <i class="bi bi-skip-start"></i> Slowest
                         Test
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>Jan 24, 2025 08:28:22</td>
+                    <td>Jan 08, 2026 10:28:49</td>
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>Jan 24, 2025 08:28:26</td>
+                    <td>Jan 08, 2026 10:28:51</td>
                     <td>
                         <i class="bi bi-stopwatch-fill"></i> Total
                         Execution Time
                     </td>
-                    <td>3s</td>
+                    <td>5s</td>
                 </tr>
                 </tbody>
             </table>
@@ -547,13 +627,27 @@ he should see the title of the page that contains (ignoring case): <[red]>
                                                                     <th class="test-name-column">Scenario</th>
                                                                     <th>Context</th>
                                                                     <th>Steps</th>
-                                                                    <th>StepsText</th>
                                                                     <th>Started</th>
                                                                     <th>Total Duration</th>
                                                                     <th>Result</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html">Search by keyword</a>
+                                                                        </td>
+                                                                        <td data-order="Searching for &#39;orange&#39;">
+                                                                                    <a href="a38b69269f3a78736ed0159313b4845a46ade98c0354debca6f0d16d3ab0dc2b.html">Searching for 'orange'</a>
+                                                                        </td>
+                                                                        <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-ubuntu' title='Linux'></i></span><span style="display:none">Chrome,linux</span>
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                        <td data-order="1767868129">10:28:49</td>
+                                                                        <td>1s 943ms</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr class="scenario-result SUCCESS">
                                                                         <td>
                                                                                 <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
@@ -564,14 +658,24 @@ he should see the title of the page that contains (ignoring case): <[red]>
                                                                         <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-ubuntu' title='Linux'></i></span><span style="display:none">Chrome,linux</span>
                                                                         </td>
                                                                         <td>3</td>
-                                                                        <td>Given Sergey is researching things on the internet
-When he looks up &quot;red&quot;
-Then he should see information about &quot;red&quot;
-</td>
-                                                                        <td data-order="1737707302">08:28:22</td>
-                                                                        <td>3s 962ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
+                                                                        <td data-order="1767868129">10:28:49</td>
+                                                                        <td>1s 838ms</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html">Search by keyword</a>
+                                                                        </td>
+                                                                        <td data-order="Searching for &#39;dog&#39;">
+                                                                                    <a href="e8998a0780663d73e3c30eb09d0dfad2ba43d0b620d108ea4e7b34c858a55191.html">Searching for 'dog'</a>
+                                                                        </td>
+                                                                        <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-ubuntu' title='Linux'></i></span><span style="display:none">Chrome,linux</span>
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                        <td data-order="1767868129">10:28:49</td>
+                                                                        <td>1s 941ms</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -598,7 +702,7 @@ Then he should see information about &quot;red&quot;
                             <div>
                                     <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -610,7 +714,7 @@ Then he should see information about &quot;red&quot;
                             <div>
                                     <a href="46b54d9084ba9783130da16408afb27a4e4620f6bd966e731510c7395b9ddf5c.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -636,7 +740,7 @@ Then he should see information about &quot;red&quot;
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 4.2.13</span>
+            <span class="version">Serenity BDD version 5.0.4</span>
         </div>
     </div>
 </div>
@@ -664,7 +768,7 @@ Then he should see information about &quot;red&quot;
             datasets: [{
                 label: 'Test Results',
                 fill: false,
-                data: [1,0,0,0,0,0,0,0],
+                data: [3,0,0,0,0,0,0,0],
                 backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                 borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                 borderWidth: 1,
@@ -760,7 +864,7 @@ Then he should see information about &quot;red&quot;
             datasets: [
                 {
                     label: 'Automated',
-                    data: [1,0,0,0,0,0,0,0],
+                    data: [3,0,0,0,0,0,0,0],
                     backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                     borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                     borderWidth: 1
@@ -843,7 +947,7 @@ Then he should see information about &quot;red&quot;
             datasets: [{
                 label: 'Number of tests per duration',
                 fill: false,
-                data: ['0','1','0','0','0','0','0','0'],
+                data: ['0','3','0','0','0','0','0','0'],
                 backgroundColor: 'rgba(83, 146, 255,0.5)',
                 borderColor: 'rgba(83, 146, 255, 1)',
             }]
@@ -908,52 +1012,64 @@ Then he should see information about &quot;red&quot;
             {
                 title: 'Search by keyword',
                 result: 'SUCCESS',
+                link: "d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html"
+            },
+            {
+                title: 'Search by keyword',
+                result: 'SUCCESS',
                 link: "7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html"
+            },
+            {
+                title: 'Search by keyword',
+                result: 'SUCCESS',
+                link: "014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html"
             },
         ]
         const coverageData = {
             labels: [
                 'Search by keyword',
+                'Search by keyword',
+                'Search by keyword',
             ],
             datasets: [
                 {
                     label: ['Passing Tests'],
-                    data: [1],
+                    data: [1,1,1],
                     backgroundColor: [ 'rgba(153,204,51,0.5)' ]
                 },
                 {
                     label: ['Pending Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(165, 199, 238, 0.5)' ]
                 },
                 {
                     label: ['Ignored Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(168, 168, 168, 0.5)' ]
                 },
                 {
                     label: ['Skipped Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(238, 224, 152, 0.75)' ]
                 },
                 {
                     label: ['Aborted Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 153, 102, 0.5)' ]
                 },
                 {
                     label: ['Failed Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 22, 49, 0.5)' ]
                 },
                 {
                     label: ['Errors'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 97, 8, 0.5)' ]
                 },
                 {
                     label: ['Compromised Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 104, 255, 0.5)' ]
                 },
             ]

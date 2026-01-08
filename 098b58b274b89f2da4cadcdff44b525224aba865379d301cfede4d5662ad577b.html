@@ -27,14 +27,14 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
 <!-- JQuery -->
-<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
+<script type="text/javascript" src="scripts/jquery-3.7.1.min.js"></script><!-- Required Stylesheets -->
 <link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -72,11 +72,11 @@
     Chart.register(ChartDataLabels);
 </script>
 <!-- JQuery-UI -->
-<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
-<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="jquery-ui-1.14.1/jquery-ui.css" rel="Stylesheet" />
+<script type="text/javascript" src="jquery-ui-1.14.1/jquery-ui.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -108,14 +108,47 @@
     <script class="code" type="text/javascript">$(document).ready(function () {
 
 
+            $.fn.dataTable.ext.type.order['test-result-pre'] = function(data) {
+                // Extract the text from the hidden span (SUCCESS, FAILURE, etc.)
+                var match = data.match(/<span[^>]*style="display:none"[^>]*>(.*?)<\/span>/);
+                var result = match ? match[1].trim() : '';
+
+                // Define sort priority (failures first when ascending)
+                var order = {
+                    'FAILURE': 1,
+                    'ERROR': 2,
+                    'BROKEN': 3,
+                    'COMPROMISED': 4,
+                    'PENDING': 5,
+                    'IGNORED': 6,
+                    'SKIPPED': 7,
+                    'ABORTED': 8,
+                    'SUCCESS': 9
+                };
+
+                return order[result] || 99;
+            };
+
+            // Then modify your DataTable initialization
             $("#scenario-results").DataTable({
-                "order": [[0, "asc",], [3, "asc",]],
+                "order": [[0, "asc"], [1, "asc"], [2, "asc"]], // Keep your default sort order
                 "language": {
                     searchPlaceholder: "Filter",
                     search: ""
                 },
                 columnDefs: [
-                    {type: 'time-elapsed-dhms', targets: 4}
+                    {
+                        targets: 3, // Started column (Feature=0, Scenario=1, Steps=2, Started=3)
+                        visible: false
+                    },
+                    {
+                        type: 'time-elapsed-dhms',
+                        targets: 4 // Total Duration column
+                    },
+                    {
+                        type: 'test-result',
+                        targets: 5 // Result column
+                    }
                 ]
             })
             $("#manual-scenario-results").DataTable({
@@ -179,7 +212,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 24-01-2025 08:28:29</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 08-01-2026 10:28:57</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -195,7 +228,7 @@
                             <div class="test-count-summary">
                                 <div>
 
-                                    2 tests
+                                    9 tests
 
                                      |
                                         <a href="2ac51e554d789d6a89a2d887cc7d470fdfe247e6d13b3d925a58a3699b7d2a17.csv" title="Download CSV"> <i class="bi bi-cloud-arrow-down" title="Download CSV"></i></a>
@@ -235,60 +268,60 @@
                     <td>
                         <i class="bi bi-card-checklist"></i> Number of Scenarios
                     </td>
-                    <td>2</td>
+                    <td>9</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-caret-right"></i> Total Number of Test Cases
                     </td>
-                    <td>2</td>
+                    <td>9</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>Jan 24, 2025 08:28:22</td>
+                    <td>Jan 08, 2026 10:28:41</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>Jan 24, 2025 08:28:26</td>
+                    <td>Jan 08, 2026 10:28:53</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Total
                         Duration
                     </td>
-                    <td>3s</td>
+                    <td>11s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-trophy"></i> Fastest Test
                     </td>
-                    <td>3s</td>
+                    <td>1s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-skip-start"></i> Slowest
                         Test
                     </td>
-                    <td>3s</td>
+                    <td>7s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
                     </td>
-                    <td>3s</td>
+                    <td>4s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch-fill"></i> Total
                         Execution Time
                     </td>
-                    <td>7s</td>
+                    <td>42s</td>
                 </tr>
                 </tbody>
             </table>
@@ -331,14 +364,19 @@
                                                                 <div class="card">
                                                                     <div class="card-body">
                                                                         <div>
+                                                                                <a href="b7157c4867743caddeea3a6c6833dfa1d62a8719894af36267c50c695c77637e.html">
+                                                                                    <span class="badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                                                                        <i class="bi bi-tag"></i> Blue&nbsp;&nbsp;&nbsp;3
+                                                                                    </span>
+                                                                                </a>
                                                                                 <a href="187446537a4bf2d61dca130c011da9d63c803bfa9cad2197fe098a8fe962b8e7.html">
                                                                                     <span class="badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                                                                        <i class="bi bi-tag"></i> Green&nbsp;&nbsp;&nbsp;1
+                                                                                        <i class="bi bi-tag"></i> Green&nbsp;&nbsp;&nbsp;3
                                                                                     </span>
                                                                                 </a>
                                                                                 <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.html">
                                                                                     <span class="badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                                                                        <i class="bi bi-tag"></i> Red&nbsp;&nbsp;&nbsp;1
+                                                                                        <i class="bi bi-tag"></i> Red&nbsp;&nbsp;&nbsp;3
                                                                                     </span>
                                                                                 </a>
                                                                         </div>
@@ -350,7 +388,7 @@
                                                                         <div>
                                                                                 <a href="46b54d9084ba9783130da16408afb27a4e4620f6bd966e731510c7395b9ddf5c.html">
                                                                                     <span class="badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                                                                        <i class="bi bi-tag"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;2
+                                                                                        <i class="bi bi-tag"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;9
                                                                                     </span>
                                                                                 </a>
                                                                         </div>
@@ -382,10 +420,10 @@
                                                                         <tbody>
                                                                                 <tr>
                                                                                     <td>
-                                                                                            <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html" > Search by keyword</a>
+                                                                                            <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html" > Search > Search by keyword</a>
                                                                                     </td>
-                                                                                    <td>2</td>
-                                                                                    <td>2</td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
                                                                                     <td>100%</td>
                                                                                     <td>
                                                                                             <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
@@ -395,7 +433,53 @@
                                                                                                 <div class="progress-bar"
                                                                                                      role="progressbar"
                                                                                                      style="width: 100%; background-color: #b0cf73"
-                                                                                                     aria-valuenow="2"
+                                                                                                     aria-valuenow="3"
+                                                                                                     title="100% success"
+                                                                                                     aria-valuemin="0"
+                                                                                                     aria-valuemax="100">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                            <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html" > Search > Search by keyword</a>
+                                                                                    </td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
+                                                                                    <td>100%</td>
+                                                                                    <td>
+                                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="progress">
+                                                                                                <div class="progress-bar"
+                                                                                                     role="progressbar"
+                                                                                                     style="width: 100%; background-color: #b0cf73"
+                                                                                                     aria-valuenow="3"
+                                                                                                     title="100% success"
+                                                                                                     aria-valuemin="0"
+                                                                                                     aria-valuemax="100">
+                                                                                                </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                            <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html" > Search > Search by keyword</a>
+                                                                                    </td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
+                                                                                    <td>100%</td>
+                                                                                    <td>
+                                                                                            <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="progress">
+                                                                                                <div class="progress-bar"
+                                                                                                     role="progressbar"
+                                                                                                     style="width: 100%; background-color: #b0cf73"
+                                                                                                     aria-valuenow="3"
                                                                                                      title="100% success"
                                                                                                      aria-valuemin="0"
                                                                                                      aria-valuemax="100">
@@ -416,14 +500,19 @@
                     <div class="card">
                         <div class="card-body">
                             <div>
+                                    <a href="b7157c4867743caddeea3a6c6833dfa1d62a8719894af36267c50c695c77637e.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Blue&nbsp;&nbsp;&nbsp;3
+                                    </span>
+                                    </a>
                                     <a href="187446537a4bf2d61dca130c011da9d63c803bfa9cad2197fe098a8fe962b8e7.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Green&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Green&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                                     <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -435,7 +524,7 @@
                             <div>
                                     <a href="46b54d9084ba9783130da16408afb27a4e4620f6bd966e731510c7395b9ddf5c.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;2
+                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;9
                                     </span>
                                     </a>
                             </div>
@@ -465,14 +554,50 @@
                                                 <tbody>
                                                         <tr class="scenario-result SUCCESS">
                                                             <td>
-                                                                    <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
+                                                                    <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html">Search by keyword</a>
                                                             </td>
-                                                            <td><a href="a130de32e9bb7634ef328e7b715e25f884d2e00b196e6ae10bba19a55fbac223.html">Searching for 'red'</a>
+                                                            <td><a href="c74ec6543ad0da4584b69dec3d415cc28e9e7494dfbd707e292476f10c1875f8.html">Searching for 'lemon'</a>
                                                             </td>
                                                             <td>3</td>
-                                                            <td>08:28:22</td>
-                                                            <td>3s 962ms</td>
-                                                            <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                            <td>10:28:42</td>
+                                                            <td>7s 945ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="a38b69269f3a78736ed0159313b4845a46ade98c0354debca6f0d16d3ab0dc2b.html">Searching for 'orange'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:49</td>
+                                                            <td>1s 943ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="33a356f48e53082cada2ca26f705c5d53bf99902aec1c82da06cdc31451e5928.html">Searching for 'apple'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:50</td>
+                                                            <td>2s 754ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="504251748073383128eea190cab3d104ec531be1067dd0b7d7ce655ee27a9fbc.html">Searching for 'blue'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:42</td>
+                                                            <td>7s 919ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
                                                             </td>
                                                         </tr>
                                                         <tr class="scenario-result SUCCESS">
@@ -482,9 +607,57 @@
                                                             <td><a href="8e6c75102905838eb9c416040be1b74e5a1e55e54ead3ad42ba6c6ec28784329.html">Searching for 'green'</a>
                                                             </td>
                                                             <td>3</td>
-                                                            <td>08:28:22</td>
-                                                            <td>3s 670ms</td>
-                                                            <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span style="display:none">SUCCESS</span>
+                                                            <td>10:28:42</td>
+                                                            <td>7s 954ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="a130de32e9bb7634ef328e7b715e25f884d2e00b196e6ae10bba19a55fbac223.html">Searching for 'red'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:49</td>
+                                                            <td>1s 838ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="9767b893e6b0a912603392f2b73bd50fa03ac048e058c9c9adcd621a01829753.html">Searching for 'cat'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:41</td>
+                                                            <td>7s 975ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="e8998a0780663d73e3c30eb09d0dfad2ba43d0b620d108ea4e7b34c858a55191.html">Searching for 'dog'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:49</td>
+                                                            <td>1s 941ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="scenario-result SUCCESS">
+                                                            <td>
+                                                                    <a href="014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html">Search by keyword</a>
+                                                            </td>
+                                                            <td><a href="4a07498a19abddfc59e879badcf46914ad18672e72ff22bf04da4dd2d11ccc89.html">Searching for 'fish'</a>
+                                                            </td>
+                                                            <td>3</td>
+                                                            <td>10:28:51</td>
+                                                            <td>1s 924ms</td>
+                                                            <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
                                                             </td>
                                                         </tr>
                                                 </tbody>
@@ -509,14 +682,19 @@
                     <div class="card">
                         <div class="card-body">
                             <div>
+                                    <a href="b7157c4867743caddeea3a6c6833dfa1d62a8719894af36267c50c695c77637e.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Blue&nbsp;&nbsp;&nbsp;3
+                                    </span>
+                                    </a>
                                     <a href="187446537a4bf2d61dca130c011da9d63c803bfa9cad2197fe098a8fe962b8e7.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Green&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Green&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                                     <a href="ff8eb8597b24914de061165a714778b9e3256fa37d4f2ed8e22c31164f67b646.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;1
+                                        <i class="bi bi-tag-fill"></i> Red&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -528,7 +706,7 @@
                             <div>
                                     <a href="46b54d9084ba9783130da16408afb27a4e4620f6bd966e731510c7395b9ddf5c.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;2
+                                        <i class="bi bi-tag-fill"></i> Chrome, Linux&nbsp;&nbsp;&nbsp;9
                                     </span>
                                     </a>
                             </div>
@@ -554,7 +732,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 4.2.13</span>
+            <span class="version">Serenity BDD version 5.0.4</span>
         </div>
     </div>
 </div>
@@ -582,7 +760,7 @@
             datasets: [{
                 label: 'Test Results',
                 fill: false,
-                data: [{meta: 'Passing tests', value: 2}, {meta: 'Pending tests', value: 0}, {meta: 'Ignored tests', value: 0}, {meta: 'Skipped tests', value: 0}, {meta: 'Aborted tests', value: 0}, {meta: 'Failing tests', value: 0}, {meta: 'Broken tests', value: 0}, {meta: 'Compromised tests', value: 0}],
+                data: [{meta: 'Passing tests', value: 9}, {meta: 'Pending tests', value: 0}, {meta: 'Ignored tests', value: 0}, {meta: 'Skipped tests', value: 0}, {meta: 'Aborted tests', value: 0}, {meta: 'Failing tests', value: 0}, {meta: 'Broken tests', value: 0}, {meta: 'Compromised tests', value: 0}],
                 backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                 borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                 borderWidth: 1,
@@ -678,7 +856,7 @@
             datasets: [
                 {
                     label: 'Automated',
-                    data: [2,0,0,0,0,0,0,0],
+                    data: [9,0,0,0,0,0,0,0],
                     backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                     borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                     borderWidth: 1
@@ -761,7 +939,7 @@
             datasets: [{
                 label: 'Number of tests per duration',
                 fill: false,
-                data: ['0','2','0','0','0','0','0','0'],
+                data: ['0','9','0','0','0','0','0','0'],
                 backgroundColor: 'rgba(83, 146, 255,0.5)',
                 borderColor: 'rgba(83, 146, 255, 1)',
             }]
@@ -826,52 +1004,64 @@
             {
                 title: 'Search by keyword',
                 result: 'SUCCESS',
+                link: "d4f3d52a98e18545f2601b0ca55e40492abf35056dc6112d85edf201d66b3328.html"
+            },
+            {
+                title: 'Search by keyword',
+                result: 'SUCCESS',
                 link: "7340372ade9e992b546bdad4be8cf6f2b2d5ff2a581167d17ccc18c60e3f95b2.html"
+            },
+            {
+                title: 'Search by keyword',
+                result: 'SUCCESS',
+                link: "014c2e10d655ed6cabbcf3af1b4861e4f0b65ebaf27bdcf529c0d3a049a46166.html"
             },
         ]
         const coverageData = {
             labels: [
                 'Search by keyword',
+                'Search by keyword',
+                'Search by keyword',
             ],
             datasets: [
                 {
                     label: ['Passing Tests'],
-                    data: [2],
+                    data: [3,3,3],
                     backgroundColor: [ 'rgba(153,204,51,0.5)' ]
                 },
                 {
                     label: ['Pending Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(165, 199, 238, 0.5)' ]
                 },
                 {
                     label: ['Ignored Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(168, 168, 168, 0.5)' ]
                 },
                 {
                     label: ['Skipped Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(238, 224, 152, 0.75)' ]
                 },
                 {
                     label: ['Aborted Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 153, 102, 0.5)' ]
                 },
                 {
                     label: ['Failed Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 22, 49, 0.5)' ]
                 },
                 {
                     label: ['Errors'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 97, 8, 0.5)' ]
                 },
                 {
                     label: ['Compromised Tests'],
-                    data: [0],
+                    data: [0,0,0],
                     backgroundColor: [ 'rgba(255, 104, 255, 0.5)' ]
                 },
             ]
