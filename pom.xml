@@ -11,10 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>4.3.2</serenity.version>
-        <junit-vintage-engine.version>5.13.0</junit-vintage-engine.version>
-        <junit-platform-suite.version>1.13.0</junit-platform-suite.version>
-        <cucumber-junit-platform-engine.version>7.31.0</cucumber-junit-platform-engine.version>
+        <serenity.version>5.0.4</serenity.version>
+        <junit-vintage-engine.version>6.0.1</junit-vintage-engine.version>
+        <junit-platform-suite.version>6.0.1</junit-platform-suite.version>
+        <cucumber-junit-platform-engine.version>7.33.0</cucumber-junit-platform-engine.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
