@@ -12,8 +12,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:5.0.4"
-        classpath "net.serenity-bdd:serenity-single-page-report:5.0.4"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:5.2.4"
+        classpath "net.serenity-bdd:serenity-single-page-report:5.2.4"
     }
 }
 
@@ -24,12 +24,12 @@ apply plugin: 'idea'
 apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 ext {
-    serenity_version = '5.0.4'
+    serenity_version = '5.2.4'
     junit_platform_launcher_version="1.13.0"
-    cucumber_junit_platform_engine_version="7.33.0"
-    junit_platform_suite_version="6.0.1"
-    junit_jupiter_engine_version="6.0.1"
-    junit_vintage_engine_version="6.0.1"
+    cucumber_junit_platform_engine_version="7.34.2"
+    junit_platform_suite_version="6.0.3"
+    junit_jupiter_engine_version="6.0.3"
+    junit_vintage_engine_version="6.0.3"
     logback_classic_version="1.2.10"
     assertj_core_version="3.23.1"
 }
