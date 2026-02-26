@@ -12,8 +12,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:5.2.4"
-        classpath "net.serenity-bdd:serenity-single-page-report:5.2.4"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:5.3.2"
+        classpath "net.serenity-bdd:serenity-single-page-report:5.3.2"
     }
 }
 
@@ -24,7 +24,7 @@ apply plugin: 'idea'
 apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 ext {
-    serenity_version = '5.2.4'
+    serenity_version = '5.3.2'
     junit_platform_launcher_version="1.13.0"
     cucumber_junit_platform_engine_version="7.34.2"
     junit_platform_suite_version="6.0.3"
