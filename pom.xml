@@ -11,9 +11,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>5.3.8</serenity.version>
-        <junit.version>6.0.3</junit.version>
-        <cucumber.version>7.34.2</cucumber.version>
+        <serenity.version>5.4.2</serenity.version>
+        <junit.version>6.1.3</junit.version>
+        <cucumber.version>8.0.4</cucumber.version>
+        <jackson.version>2.21.7</jackson.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
@@ -43,6 +44,19 @@
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
+            <scope>test</scope>
+        </dependency>
+         <!-- Cucumber reporting requires Jackson databind and the JDK 8 module. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

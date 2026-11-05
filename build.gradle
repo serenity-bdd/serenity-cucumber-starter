@@ -12,8 +12,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.serenity-bdd:serenity-gradle-plugin:5.3.2"
-        classpath "net.serenity-bdd:serenity-single-page-report:5.3.2"
+        classpath "net.serenity-bdd:serenity-gradle-plugin:5.4.2"
+        classpath "net.serenity-bdd:serenity-single-page-report:5.4.2"
     }
 }
 
@@ -24,31 +24,38 @@ apply plugin: 'idea'
 apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
 ext {
-    serenity_version = '5.3.2'
-    junit_platform_launcher_version="1.13.0"
-    cucumber_junit_platform_engine_version="7.34.2"
-    junit_platform_suite_version="6.0.3"
-    junit_jupiter_engine_version="6.0.3"
-    junit_vintage_engine_version="6.0.3"
+    serenity_version = '5.4.2'
+    junit_platform_launcher_version="6.1.3"
+    cucumber_junit_platform_engine_version="8.0.4"
+    junit_platform_suite_version="6.1.3"
+    junit_jupiter_api_version="6.1.3"
+    junit_jupiter_engine_version="6.1.3"
+    junit_vintage_engine_version="6.1.3"
+    jackson_version="2.21.7"
+    jna_platform_version="5.18.1"
     logback_classic_version="1.2.10"
     assertj_core_version="3.23.1"
 }
 
 dependencies {
-    dependencies {
-        testImplementation "net.serenity-bdd:serenity-core:${serenity_version}"
-        testImplementation "net.serenity-bdd:serenity-cucumber:${serenity_version}"
-        testImplementation "net.serenity-bdd:serenity-screenplay:${serenity_version}"
-        testImplementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenity_version}"
-        testImplementation "net.serenity-bdd:serenity-ensure:${serenity_version}"
-        testImplementation "org.junit.platform:junit-platform-launcher:${junit_platform_launcher_version}"
-        testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumber_junit_platform_engine_version}"
-        testImplementation "org.junit.platform:junit-platform-suite:${junit_platform_suite_version}"
-        testImplementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}"
-        testImplementation "org.junit.vintage:junit-vintage-engine:${junit_vintage_engine_version}"
-        implementation "ch.qos.logback:logback-classic:${logback_classic_version}"
-        testImplementation "org.assertj:assertj-core:${assertj_core_version}"
-    }
+    testImplementation platform("net.serenity-bdd:serenity-bom:${serenity_version}")
+    testImplementation "net.serenity-bdd:serenity-core"
+    testImplementation "net.serenity-bdd:serenity-cucumber"
+    testImplementation "net.serenity-bdd:serenity-screenplay"
+    testImplementation "net.serenity-bdd:serenity-screenplay-webdriver"
+    testImplementation "net.serenity-bdd:serenity-ensure"
+    implementation "net.java.dev.jna:jna-platform:${jna_platform_version}"
+    // Cucumber reporting requires Jackson databind and the JDK 8 module.
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:${jackson_version}"
+    testImplementation "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jackson_version}"
+    testImplementation "org.junit.platform:junit-platform-launcher:${junit_platform_launcher_version}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumber_junit_platform_engine_version}"
+    testImplementation "org.junit.platform:junit-platform-suite:${junit_platform_suite_version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_jupiter_api_version}"
+    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_engine_version}"
+    testImplementation "org.junit.vintage:junit-vintage-engine:${junit_vintage_engine_version}"
+    implementation "ch.qos.logback:logback-classic:${logback_classic_version}"
+    testImplementation "org.assertj:assertj-core:${assertj_core_version}"
 }
 
 test {
