@@ -1,8 +1,8 @@
 package starter.search;
 
 import net.serenitybdd.screenplay.targets.Target;
+import org.openqa.selenium.By;
 
 class SearchForm {
-    static Target SEARCH_FIELD = Target.the("search field").locatedBy("[data-ssg-id='ai-searchbox-input']");
-
+    static Target SEARCH_FIELD = Target.the("search field").located(By.cssSelector("textarea[name='q']"));
 }
